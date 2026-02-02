@@ -40,6 +40,11 @@ public class BoardsController: ControllerBase
    [HttpPost]
    public async Task<ActionResult<Board>> CreateBoard(Board board)
    {
+      if(await _context.Boards.FindAsync(board.Name) != null)
+      {
+         return BadRequest(new {error = $"Board '{board.Name}' already exists"});
+      }
+
       _context.Boards.Add(board);
       await _context.SaveChangesAsync();
       return Ok();
