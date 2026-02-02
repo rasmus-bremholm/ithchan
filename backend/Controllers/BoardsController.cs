@@ -24,10 +24,10 @@ public class BoardsController: ControllerBase
       return Ok(boards);
    }
 
-   [HttpGet("{id}")]
-   public async Task<ActionResult<Board>> GetBoard(int id)
+   [HttpGet("{name}")]
+   public async Task<ActionResult<Board>> GetBoard(string name)
    {
-      var board = await _context.Boards.FindAsync(id);
+      var board = await _context.Boards.FindAsync(name);
 
       if(board == null)
       {

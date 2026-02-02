@@ -19,15 +19,11 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Models.Board", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
+                    b.Property<string>("Name")
+                        .HasMaxLength(4)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -35,7 +31,7 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("Name");
 
                     b.ToTable("Boards");
                 });
@@ -82,8 +78,10 @@ namespace backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BoardId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("BoardName")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
@@ -103,7 +101,7 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BoardId");
+                    b.HasIndex("BoardName");
 
                     b.ToTable("Topics");
                 });
@@ -123,7 +121,7 @@ namespace backend.Migrations
                 {
                     b.HasOne("backend.Models.Board", "Board")
                         .WithMany("Topics")
-                        .HasForeignKey("BoardId")
+                        .HasForeignKey("BoardName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

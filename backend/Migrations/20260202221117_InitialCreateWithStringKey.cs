@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace backend.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCreateWithStringKey : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,15 +15,13 @@ namespace backend.Migrations
                 name: "Boards",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 4, nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Boards", x => x.Id);
+                    table.PrimaryKey("PK_Boards", x => x.Name);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,7 +30,7 @@ namespace backend.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    BoardId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BoardName = table.Column<string>(type: "TEXT", maxLength: 4, nullable: false),
                     Subject = table.Column<string>(type: "TEXT", nullable: false),
                     isLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     isPinned = table.Column<bool>(type: "INTEGER", nullable: false),
@@ -43,10 +41,10 @@ namespace backend.Migrations
                 {
                     table.PrimaryKey("PK_Topics", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Topics_Boards_BoardId",
-                        column: x => x.BoardId,
+                        name: "FK_Topics_Boards_BoardName",
+                        column: x => x.BoardName,
                         principalTable: "Boards",
-                        principalColumn: "Id",
+                        principalColumn: "Name",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -81,9 +79,9 @@ namespace backend.Migrations
                 column: "TopicId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Topics_BoardId",
+                name: "IX_Topics_BoardName",
                 table: "Topics",
-                column: "BoardId");
+                column: "BoardName");
         }
 
         /// <inheritdoc />

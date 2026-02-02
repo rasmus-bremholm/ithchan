@@ -11,8 +11,8 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260202211502_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260202221117_InitialCreateWithStringKey")]
+    partial class InitialCreateWithStringKey
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,15 +22,11 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Models.Board", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
+                    b.Property<string>("Name")
+                        .HasMaxLength(4)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -38,7 +34,7 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("Name");
 
                     b.ToTable("Boards");
                 });
@@ -85,8 +81,10 @@ namespace backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BoardId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("BoardName")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
@@ -106,7 +104,7 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BoardId");
+                    b.HasIndex("BoardName");
 
                     b.ToTable("Topics");
                 });
@@ -126,7 +124,7 @@ namespace backend.Migrations
                 {
                     b.HasOne("backend.Models.Board", "Board")
                         .WithMany("Topics")
-                        .HasForeignKey("BoardId")
+                        .HasForeignKey("BoardName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
