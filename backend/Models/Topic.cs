@@ -1,6 +1,6 @@
 namespace backend.Models;
 
-public class Thread
+public class Topic
 {
    public int Id {get; set;}
    public int BoardId {get; set;}

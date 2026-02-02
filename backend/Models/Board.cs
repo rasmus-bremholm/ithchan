@@ -7,5 +7,5 @@ public class Board
    public string Title {get; set;} = string.Empty;
    public string Description {get; set;} = string.Empty;
 
-   public List<Thread> Threads {get; set;} = new();
+   public List<Topic> Topics {get; set;} = new();
 }
