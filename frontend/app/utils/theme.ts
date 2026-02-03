@@ -31,14 +31,14 @@ const baseOptions: ThemeOptions = {
 
 // Theme Variants
 const themeOptions: Record<ThemeVariant, ThemeOptions> = {
-	light: {
+	yotsuba: {
 		palette: {
 			mode: "light",
 			primary: { main: "#1976d2" },
 			background: { default: "#f8f9fa", paper: "#ffffff" },
 		},
 	},
-	dark: {
+	tomorrow: {
 		palette: {
 			mode: "dark",
 			primary: { main: "#90caf9" },
@@ -64,7 +64,7 @@ const themeOptions: Record<ThemeVariant, ThemeOptions> = {
 };
 
 export const buildTheme = (variant: ThemeVariant) => {
-	const selectedPalette = themeOptions[variant] || themeOptions.light;
+	const selectedPalette = themeOptions[variant] || themeOptions.yotsuba;
 
 	// createTheme can take multiple objects; it merges them left to right
 	const theme = createTheme(baseOptions, selectedPalette);

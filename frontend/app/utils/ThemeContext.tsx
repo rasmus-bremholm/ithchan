@@ -10,7 +10,7 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeContextProvider = ({ children }: { children: React.ReactNode }) => {
-	const [currentTheme, setCurrentTheme] = useState<ThemeVariant>("light");
+	const [currentTheme, setCurrentTheme] = useState<ThemeVariant>("yotsuba");
 
 	useEffect(() => {
 		const saved = localStorage.getItem("app-user-theme") as ThemeVariant;
