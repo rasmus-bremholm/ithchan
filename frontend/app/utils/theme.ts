@@ -1,7 +1,7 @@
 "use client";
 import { createTheme, responsiveFontSizes, ThemeOptions } from "@mui/material/styles";
 
-export type ThemeVariant = "light" | "dark" | "ocean" | "dracula";
+export type ThemeVariant = "yotsuba" | "tomorrow" | "ocean" | "dracula";
 
 // General Theming
 
