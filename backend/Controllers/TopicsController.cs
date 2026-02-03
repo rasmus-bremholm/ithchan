@@ -93,7 +93,12 @@ public async Task<ActionResult<Topic>> CreateTopic(
       var topic = await _context.Topics.FindAsync(id);
       if(topic == null || topic.BoardName != boardName)
       {
-         return NotFound();
+         return NotFound(new {error = "Thread not found"});
+      }
+
+      if(topic.IsLocked)
+      {
+         return BadRequest(new {error= "Cannot reply to a locked thread"});
       }
 
       var post = new Post
