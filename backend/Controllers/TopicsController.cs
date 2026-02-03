@@ -49,6 +49,20 @@ public class TopicsController : ControllerBase
 
    // Get a single topic, WITH all its posts
    [HttpGet("{id}")]
+   public async Task<ActionResult<Topic>> GetTopic(string boardName, int id)
+   {
+      var topic = await _context.Topics
+      .Include(t => t.Posts)
+      .FirstOrDefaultAsync(t => t.Id == id && t.BoardName == boardName);
+
+      if(topic == null)
+      {
+         return NotFound();
+      }
+      return Ok(topic);
+   }
 
    // Post a reply to a topic
+   [HttpPost("{id}/reply")]
+   
 }
