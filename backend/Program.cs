@@ -1,8 +1,10 @@
 using backend.Data;
+using backend.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<FileUploadService>();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
