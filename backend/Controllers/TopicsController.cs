@@ -29,7 +29,7 @@ public class TopicsController : ControllerBase
    }
    // CREATE new topic
    [HttpPost]
-   public async Task<ActionResult<Topic>> CreateTopic(string boardName, Topic topic)
+   public async Task<ActionResult<Topic>> CreateTopic([FromRoute] string boardName, [FromBody] Topic topic)
    {
       var board = await _context.Boards.FindAsync(boardName);
       if(board == null)
@@ -80,4 +80,12 @@ public class TopicsController : ControllerBase
 
       return Ok(post);
    }
+}
+
+// Add this at the bottom of TopicsController.cs, outside the class
+public class CreateTopicRequest
+{
+    public string Subject { get; set; } = string.Empty;
+    public bool IsLocked { get; set; } = false;
+    public bool IsPinned { get; set; } = false;
 }
