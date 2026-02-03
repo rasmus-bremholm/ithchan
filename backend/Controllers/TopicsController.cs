@@ -53,6 +53,20 @@ public async Task<ActionResult<Topic>> CreateTopic(
     _context.Topics.Add(topic);
     await _context.SaveChangesAsync();
 
+    var firstPost = new Post
+    {
+         TopicId = topic.Id,
+         Name = request.Name,
+         Content = request.Content,
+         ImagePath = request.ImagePath,
+         CreatedAt = DateTime.UtcNow
+      };
+
+      topic.Posts.Add(firstPost);
+      await _context.SaveChangesAsync();
+
+      topic.Posts = new List<Post>{firstPost};
+
     return Ok(topic);
 }
 
@@ -104,7 +118,10 @@ public class CreateTopicRequest
     public bool IsLocked { get; set; } = false;
     public bool IsPinned { get; set; } = false;
 
-    // Fie
+    // OP post fields
+    public string Name {get; set;} = "Anonymous";
+    public string Content {get; set;} = string.Empty;
+    public string? ImagePath {get; set;}
 }
 
 public class CreatePostRequest
