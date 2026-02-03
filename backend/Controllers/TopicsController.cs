@@ -17,7 +17,7 @@ public class TopicsController : ControllerBase
       _context = context;
    }
 
-// Topics
+   // GET all topics on a board
    [HttpGet]
    public async Task<ActionResult<List<Topic>>> GetTopicsForBoard(string boardName)
    {
@@ -27,7 +27,7 @@ public class TopicsController : ControllerBase
 
       return Ok(topics);
    }
-
+   // CREATE new topic
    [HttpPost]
    public async Task<ActionResult<Topic>> CreateTopic(string boardName, Topic topic)
    {
@@ -47,7 +47,8 @@ public class TopicsController : ControllerBase
       return Ok(topic);
    }
 
-   // Posts
+   // Get a single topic, WITH all its posts
    [HttpGet("{id}")]
-   
+
+   // Post a reply to a topic
 }
