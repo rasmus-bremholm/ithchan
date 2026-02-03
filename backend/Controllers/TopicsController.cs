@@ -64,5 +64,20 @@ public class TopicsController : ControllerBase
 
    // Post a reply to a topic
    [HttpPost("{id}/reply")]
-   
+   public async Task<ActionResult<Topic>> CreateReply(string boardName, int id, Post post)
+   {
+      var topic = await _context.Topics.FindAsync(id);
+      if(topic == null || topic.BoardName != boardName)
+      {
+         return NotFound();
+      }
+
+      post.TopicId = id;
+      post.CreatedAt = DateTime.UtcNow;
+
+      _context.Posts.Add(post);
+      await _context.SaveChangesAsync();
+
+      return Ok(post);
+   }
 }
