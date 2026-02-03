@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using backend.Data;
 using backend.Models;
 using System.Reflection;
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.Controllers;
 
@@ -114,19 +115,31 @@ public async Task<ActionResult<Topic>> CreateTopic(
 // Add this at the bottom of TopicsController.cs, outside the class
 public class CreateTopicRequest
 {
+   [Required(ErrorMessage = "Subject is required")]
+   [MaxLength(200, ErrorMessage = "Subject cant be longer than 200 chars")]
+   [MinLength(1, ErrorMessage = "Subject can't be empty")]
+
     public string Subject { get; set; } = string.Empty;
     public bool IsLocked { get; set; } = false;
     public bool IsPinned { get; set; } = false;
 
     // OP post fields
+    [MaxLength(50, ErrorMessage = "Name can't be more than 50 chars")]
     public string Name {get; set;} = "Anonymous";
+    [Required(ErrorMessage = "Content is required")]
+    [MaxLength(2000, ErrorMessage = "Write shorter posts")]
+    [MinLength(1, ErrorMessage = "Content can't be empty")]
     public string Content {get; set;} = string.Empty;
     public string? ImagePath {get; set;}
 }
 
 public class CreatePostRequest
 {
+   [MaxLength(50, ErrorMessage = "Name can't be more than 50 chars")]
    public string Name {get; set;} = "Anonymous";
+   [Required(ErrorMessage = "Content is required")]
+   [MaxLength(2000, ErrorMessage = "Write shorter posts")]
+   [MinLength(1, ErrorMessage = "Content can't be empty")]
    public string Content {get; set;} = string.Empty;
    public string? ImagePath {get; set;}
 }
