@@ -17,6 +17,7 @@ public class TopicsController : ControllerBase
       _context = context;
    }
 
+// Topics
    [HttpGet]
    public async Task<ActionResult<List<Topic>>> GetTopicsForBoard(string boardName)
    {
@@ -45,4 +46,8 @@ public class TopicsController : ControllerBase
 
       return Ok(topic);
    }
+
+   // Posts
+   [HttpGet("{id}")]
+   
 }
