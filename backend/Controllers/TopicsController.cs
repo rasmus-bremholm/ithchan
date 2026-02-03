@@ -29,23 +29,32 @@ public class TopicsController : ControllerBase
    }
    // CREATE new topic
    [HttpPost]
-   public async Task<ActionResult<Topic>> CreateTopic([FromRoute] string boardName, [FromBody] Topic topic)
-   {
-      var board = await _context.Boards.FindAsync(boardName);
-      if(board == null)
-      {
-         return NotFound(new {error = $"Board '{boardName}' not found"});
-      }
+public async Task<ActionResult<Topic>> CreateTopic(
+    [FromRoute] string boardName,
+    [FromBody] CreateTopicRequest request)  // Use DTO instead of Topic
+{
+    var board = await _context.Boards.FindAsync(boardName);
+    if(board == null)
+    {
+        return NotFound(new {error = $"Board '{boardName}' not found"});
+    }
 
-      topic.BoardName = boardName;
-      topic.CreatedAt = DateTime.UtcNow;
-      topic.LastBumpedAt = DateTime.UtcNow;
+    // Create the Topic from the DTO
+    var topic = new Topic
+    {
+        BoardName = boardName,
+        Subject = request.Subject,
+        IsLocked = request.IsLocked,
+        IsPinned = request.IsPinned,
+        CreatedAt = DateTime.UtcNow,
+        LastBumpedAt = DateTime.UtcNow
+    };
 
-      _context.Topics.Add(topic);
-      await _context.SaveChangesAsync();
+    _context.Topics.Add(topic);
+    await _context.SaveChangesAsync();
 
-      return Ok(topic);
-   }
+    return Ok(topic);
+}
 
    // Get a single topic, WITH all its posts
    [HttpGet("{id}")]
