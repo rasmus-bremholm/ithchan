@@ -4,6 +4,7 @@ using backend.Data;
 using backend.Models;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
+using backend.Services;
 
 namespace backend.Controllers;
 
@@ -12,10 +13,12 @@ namespace backend.Controllers;
 public class TopicsController : ControllerBase
 {
    private readonly ApplicationDbContext _context;
+   private readonly FileUploadService _fileUploadService;
 
-   public TopicsController(ApplicationDbContext context)
+   public TopicsController(ApplicationDbContext context, FileUploadService fileUploadService)
    {
       _context = context;
+      _fileUploadService = fileUploadService;
    }
 
    // GET all topics on a board
@@ -135,7 +138,7 @@ public class CreateTopicRequest
     [MaxLength(2000, ErrorMessage = "Write shorter posts")]
     [MinLength(1, ErrorMessage = "Content can't be empty")]
     public string Content {get; set;} = string.Empty;
-    public string? ImagePath {get; set;}
+    public IFormFile? Image {get; set;}
 }
 
 public class CreatePostRequest
@@ -146,5 +149,5 @@ public class CreatePostRequest
    [MaxLength(2000, ErrorMessage = "Write shorter posts")]
    [MinLength(1, ErrorMessage = "Content can't be empty")]
    public string Content {get; set;} = string.Empty;
-   public string? ImagePath {get; set;}
+   public IFormFile? Image {get; set;}
 }
