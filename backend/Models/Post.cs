@@ -10,5 +10,5 @@ public class Post
    public string? ThumbnailPath {get; set;}
    public bool IsDeleted {get; set;} = false;
    public DateTime CreatedAt {get; set;}
-   public Topic Topic {get; set;}
+   public Topic Topic {get; set;} = null!;
 }

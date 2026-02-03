@@ -13,7 +13,7 @@ public class Topic
    public DateTime CreatedAt {get; set;}
    public DateTime LastBumpedAt {get; set;}
 
-   public Board Board {get; set;}
+   public Board Board {get; set;} = null!;
    public List<Post> Posts {get; set;} = new();
 
 }
