@@ -7,7 +7,7 @@ using System.Reflection;
 namespace backend.Controllers;
 
 [ApiController]
-[Route("api/boards{boardName}/topics")]
+[Route("api/boards/{boardName}/topics")]
 public class TopicsController : ControllerBase
 {
    private readonly ApplicationDbContext _context;
@@ -64,7 +64,7 @@ public class TopicsController : ControllerBase
 
    // Post a reply to a topic
    [HttpPost("{id}/reply")]
-   public async Task<ActionResult<Topic>> CreateReply(string boardName, int id, Post post)
+   public async Task<ActionResult<Post>> CreateReply(string boardName, int id, Post post)
    {
       var topic = await _context.Topics.FindAsync(id);
       if(topic == null || topic.BoardName != boardName)
