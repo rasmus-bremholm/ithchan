@@ -73,7 +73,7 @@ public async Task<ActionResult<Topic>> CreateTopic(
 
    // Post a reply to a topic
    [HttpPost("{id}/reply")]
-   public async Task<ActionResult<Post>> CreateReply(string boardName, int id, Post post)
+   public async Task<ActionResult<Post>> CreateReply([FromRoute] string boardName, [FromRoute] int id, [FromBody] CreatePostRequest request)
    {
       var topic = await _context.Topics.FindAsync(id);
       if(topic == null || topic.BoardName != boardName)
@@ -81,8 +81,14 @@ public async Task<ActionResult<Topic>> CreateTopic(
          return NotFound();
       }
 
-      post.TopicId = id;
-      post.CreatedAt = DateTime.UtcNow;
+      var post = new Post
+      {
+         TopicId = id,
+         Name = request.Name,
+         Content = request.Content,
+         ImagePath = request.ImagePath,
+         CreatedAt = DateTime.UtcNow
+      };
 
       _context.Posts.Add(post);
       await _context.SaveChangesAsync();
@@ -97,4 +103,13 @@ public class CreateTopicRequest
     public string Subject { get; set; } = string.Empty;
     public bool IsLocked { get; set; } = false;
     public bool IsPinned { get; set; } = false;
+
+    // Fie
+}
+
+public class CreatePostRequest
+{
+   public string Name {get; set;} = "Anonymous";
+   public string Content {get; set;} = string.Empty;
+   public string? ImagePath {get; set;}
 }
