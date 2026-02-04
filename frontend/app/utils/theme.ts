@@ -1,7 +1,7 @@
 "use client";
 import { createTheme, responsiveFontSizes, ThemeOptions } from "@mui/material/styles";
 
-export type ThemeVariant = "yotsuba" | "tomorrow" | "ocean" | "dracula";
+export type ThemeVariant = "yotsuba" | "tomorrow" | "yotsuba_b" | "dracula";
 
 // General Theming
 
@@ -26,6 +26,26 @@ const baseOptions: ThemeOptions = {
 				root: { backgroundImage: "none" },
 			},
 		},
+		MuiLink: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					color: "inherit",
+					textDecoration: "none",
+					cursor: "pointer",
+					"&:hover": {
+						color: theme.palette.primary.main,
+						textDecoration: "underline",
+					},
+				}),
+			},
+		},
+		MuiDivider: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					borderColor: theme.palette.divider,
+				}),
+			},
+		},
 	},
 };
 
@@ -34,37 +54,68 @@ const themeOptions: Record<ThemeVariant, ThemeOptions> = {
 	yotsuba: {
 		palette: {
 			mode: "light",
-			primary: { main: "#1976d2" },
-			background: { default: "#f8f9fa", paper: "#ffffff" },
+			primary: { main: "#af0a0f" }, // The iconic dark red used for board titles/links
+			secondary: { main: "#789922" }, // Greentext
+			background: {
+				default: "#ffffee", // The classic cream/yellowish page background
+				paper: "#f0e0d6", // The darker beige used for post containers
+			},
+			text: {
+				primary: "#800000", // Dark maroon for thread subjects
+				secondary: "#000000", // Standard black for post bodies
+			},
+			divider: "#d9bfb7", // Border color for posts
 		},
 	},
+
+	yotsuba_b: {
+		// Adding the blue variant since it's a staple
+		palette: {
+			mode: "light",
+			primary: { main: "#000080" }, // Deep blue for links
+			secondary: { main: "#789922" }, // Greentext remains the same
+			background: {
+				default: "#eef2ff", // Light blue page background
+				paper: "#d6daf0", // Muted blue for post containers
+			},
+			text: {
+				primary: "#0f0c5d",
+				secondary: "#000000",
+			},
+			divider: "#b7c5d9",
+		},
+	},
+
 	tomorrow: {
 		palette: {
 			mode: "dark",
-			primary: { main: "#5F89AC" }, //Link Color
-			secondary: { main: "#b5bd68" }, // Greentext Color
-			background: { default: "#1d1f21", paper: "#282a2e" }, // Background & PostMessage
+			primary: { main: "#5F89AC" },
+			secondary: { main: "#b5bd68" },
+			background: { default: "#1d1f21", paper: "#282a2e" },
 			text: {
-				primary: "#c5c8c6", // Main Font color
-				secondary: "#969896", // Grey for Metadata
+				primary: "#c5c8c6",
+				secondary: "#969896",
 			},
-			divider: "#282a2e",
+			divider: "#282a2e", // Making dividers match paper creates a "borderless" feel
 		},
+		// We can leave the MuiLink override here or move it to baseOptions
 	},
-	ocean: {
-		palette: {
-			mode: "dark",
-			primary: { main: "#00e5ff" },
-			background: { default: "#001e26", paper: "#002f3b" },
-			text: { primary: "#e0f7fa" },
-		},
-	},
+
 	dracula: {
 		palette: {
 			mode: "dark",
-			primary: { main: "#bd93f9" },
-			secondary: { main: "#ff79c6" },
-			background: { default: "#282a36", paper: "#44475a" },
+			primary: { main: "#bd93f9" }, // Purple
+			secondary: { main: "#50fa7b" }, // Green (Greentext)
+			error: { main: "#ff5555" }, // Red
+			background: {
+				default: "#282a36",
+				paper: "#44475a",
+			},
+			text: {
+				primary: "#f8f8f2",
+				secondary: "#6272a4", // Muted bluish-grey for metadata
+			},
+			divider: "#6272a4",
 		},
 	},
 };
