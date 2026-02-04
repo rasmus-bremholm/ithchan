@@ -64,7 +64,7 @@ const themeOptions: Record<ThemeVariant, ThemeOptions> = {
 };
 
 export const buildTheme = (variant: ThemeVariant) => {
-	const selectedPalette = themeOptions[variant] || themeOptions.yotsuba;
+	const selectedPalette = themeOptions[variant] || themeOptions.tomorrow;
 
 	// createTheme can take multiple objects; it merges them left to right
 	const theme = createTheme(baseOptions, selectedPalette);
