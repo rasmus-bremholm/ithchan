@@ -1,8 +1,6 @@
-
-
 namespace backend.Models;
 
-public class UseHttpsRedirection
+public class User
 {
    public int Id {get; set;}
    public string Username {get; set;} = string.Empty;
