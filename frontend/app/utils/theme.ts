@@ -41,8 +41,14 @@ const themeOptions: Record<ThemeVariant, ThemeOptions> = {
 	tomorrow: {
 		palette: {
 			mode: "dark",
-			primary: { main: "#90caf9" },
-			background: { default: "#0b0e14", paper: "#161b22" },
+			primary: { main: "#5F89AC" }, //Link Color
+			secondary: { main: "#b5bd68" }, // Greentext Color
+			background: { default: "#1d1f21", paper: "#282a2e" }, // Background & PostMessage
+			text: {
+				primary: "#c5c8c6", // Main Font color
+				secondary: "#969896", // Grey for Metadata
+			},
+			divider: "#282a2e",
 		},
 	},
 	ocean: {
