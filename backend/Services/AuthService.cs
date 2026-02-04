@@ -10,5 +10,15 @@ namespace backend.Services;
 
 public class AuthService
 {
+   // Reference to Database
+   private readonly ApplicationDbContext _context;
+   // Used for JWT secret reading
+   private readonly IConfiguration _configuration;
 
+   //Constructor
+   public AuthService(ApplicationDbContext context, IConfiguration configuration)
+   {
+      _context=context;
+      _configuration=configuration;
+   }
 }
