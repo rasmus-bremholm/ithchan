@@ -114,8 +114,11 @@ public async Task<ActionResult<Topic>> CreateTopic(
          return BadRequest(new {error= "Cannot reply to a locked thread"});
       }
 
+      //Thread bumping
+      topic.LastBumpedAt = DateTime.UtcNow;
+
       string? imagePath = null;
-    string? thumbnailPath = null;
+      string? thumbnailPath = null;
 
     if(request.Image != null)
       {
