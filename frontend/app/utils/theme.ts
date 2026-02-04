@@ -96,9 +96,8 @@ const themeOptions: Record<ThemeVariant, ThemeOptions> = {
 				primary: "#c5c8c6",
 				secondary: "#969896",
 			},
-			divider: "#282a2e", // Making dividers match paper creates a "borderless" feel
+			divider: "#282a2e",
 		},
-		// We can leave the MuiLink override here or move it to baseOptions
 	},
 
 	dracula: {
