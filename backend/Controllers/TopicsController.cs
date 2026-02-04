@@ -35,7 +35,7 @@ public class TopicsController : ControllerBase
    [HttpPost]
 public async Task<ActionResult<Topic>> CreateTopic(
     [FromRoute] string boardName,
-    [FromBody] CreateTopicRequest request)  // Use DTO instead of Topic
+    [FromForm] CreateTopicRequest request)  // Use DTO instead of Topic
 {
     var board = await _context.Boards.FindAsync(boardName);
     if(board == null)
@@ -57,19 +57,29 @@ public async Task<ActionResult<Topic>> CreateTopic(
     _context.Topics.Add(topic);
     await _context.SaveChangesAsync();
 
+    string? imagePath = null;
+    string? thumbnailPath = null;
+
+    if(request.Image != null)
+      {
+         var paths = await _fileUploadService.SaveImageAsync(request.Image);
+         imagePath = paths.imagePath;
+         thumbnailPath = paths.thumbnailPath;
+      }
+
     var firstPost = new Post
     {
          TopicId = topic.Id,
          Name = request.Name,
          Content = request.Content,
-         ImagePath = request.ImagePath,
+         ImagePath = imagePath,
+         ThumbnailPath = thumbnailPath,
          CreatedAt = DateTime.UtcNow
       };
 
-      topic.Posts.Add(firstPost);
-      await _context.SaveChangesAsync();
-
+      _context.Posts.Add(firstPost);
       topic.Posts = new List<Post>{firstPost};
+      await _context.SaveChangesAsync();
 
     return Ok(topic);
 }

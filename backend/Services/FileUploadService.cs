@@ -20,7 +20,7 @@ public class FileUploadService
       Directory.CreateDirectory(_thumbnailsPath);
    }
 
-   public async Task<(string imagePath, string thumnailPath)> SaveImagesAsync(IFormFile file)
+   public async Task<(string imagePath, string thumbnailPath)> SaveImageAsync(IFormFile file)
    {
       // Basically generate a filename and file ending from the uploaded file.
       var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
