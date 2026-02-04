@@ -101,7 +101,7 @@ public async Task<ActionResult<Topic>> CreateTopic(
 
    // Post a reply to a topic
    [HttpPost("{id}/reply")]
-   public async Task<ActionResult<Post>> CreateReply([FromRoute] string boardName, [FromRoute] int id, [FromBody] CreatePostRequest request)
+   public async Task<ActionResult<Post>> CreateReply([FromRoute] string boardName, [FromRoute] int id, [FromForm] CreatePostRequest request)
    {
       var topic = await _context.Topics.FindAsync(id);
       if(topic == null || topic.BoardName != boardName)
@@ -114,12 +114,23 @@ public async Task<ActionResult<Topic>> CreateTopic(
          return BadRequest(new {error= "Cannot reply to a locked thread"});
       }
 
+      string? imagePath = null;
+    string? thumbnailPath = null;
+
+    if(request.Image != null)
+      {
+         var paths = await _fileUploadService.SaveImageAsync(request.Image);
+         imagePath = paths.imagePath;
+         thumbnailPath = paths.thumbnailPath;
+      }
+
       var post = new Post
       {
          TopicId = id,
          Name = request.Name,
          Content = request.Content,
-         ImagePath = request.ImagePath,
+         ImagePath = imagePath,
+         ThumbnailPath = thumbnailPath,
          CreatedAt = DateTime.UtcNow
       };
 
