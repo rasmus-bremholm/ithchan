@@ -227,11 +227,11 @@ public async Task<ActionResult<Topic>> CreateTopic(
       topic.IsPinned = request.IsPinned;
       await _context.SaveChangesAsync();
 
-      return Ok(new{message = topic.IsLocked ? "Topic Pinned" : "Topic Unpinned"});
+      return Ok(new{message = topic.IsPinned ? "Topic Pinned" : "Topic Unpinned"});
    }
 }
 
-// Add this at the bottom of TopicsController.cs, outside the class
+// These are like typescript types. Like prop types.
 public class CreateTopicRequest
 {
    [Required(ErrorMessage = "Subject is required")]
