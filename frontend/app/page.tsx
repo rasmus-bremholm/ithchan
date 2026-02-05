@@ -11,11 +11,18 @@ export default async function Home() {
 
 	return (
 		<Container>
-			<Box sx={{ mt: 6, display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+			<Box sx={{ mt: 6, display: "flex", justifyContent: "center" }}>
 				<Typography variant='h1'>ITHCHAN</Typography>
+			</Box>
+			<Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
 				<Box>
-					<Typography variant='h4'>Boards</Typography>
-					<Box>
+					<Box sx={{ bgcolor: "background.paper" }}>
+						<Typography sx={{ px: 2, py: 1 }} variant='h4'>
+							Boards
+						</Typography>
+					</Box>
+
+					<Box sx={{ px: 2 }}>
 						{boards &&
 							boards.map((board) => (
 								<StyledLink key={board.name} href={`/${board.name}/`} color='primary'>
@@ -26,12 +33,18 @@ export default async function Home() {
 							))}
 					</Box>
 				</Box>
-				<Box>
-					<Typography variant='h4'>Popular Threads</Typography>
+				<Box sx={{ bgcolor: "background.paper" }}>
+					<Typography sx={{ px: 2, py: 1 }} variant='h4'>
+						Popular Threads
+					</Typography>
 				</Box>
 				<Box>
-					<Typography variant='h4'>Stats</Typography>
-					<Box sx={{ display: "flex", gap: 2 }}>
+					<Box sx={{ bgcolor: "background.paper" }}>
+						<Typography sx={{ px: 2, py: 1 }} variant='h4'>
+							Stats
+						</Typography>
+					</Box>
+					<Box sx={{ display: "flex", gap: 2, px: 2 }}>
 						<Typography>Total Posts: </Typography>
 						<Typography>Current Users: </Typography>
 						<Typography>Active Content: </Typography>
