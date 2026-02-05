@@ -29,7 +29,7 @@ public class AuthController : ControllerBase
       return Ok(new{message = "User created", username= user.Username, role = user.Role});
    }
 
-   [HttpPost]
+   [HttpPost("login")]
    public async Task<ActionResult> Login(LoginRequest request)
    {
       var token = await _authService.LoginAsync(request.Username, request.Password);
