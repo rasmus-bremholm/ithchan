@@ -147,7 +147,7 @@ public async Task<ActionResult<Topic>> CreateTopic(
    //Honestly just copy this method for the pinned post.
    // Delete POST
    [HttpDelete("{topicId}/posts/{postId}")]
-   [Authorize(Roles = "Moderator, Admin")]
+   [Authorize(Roles = "Moderator,Admin")]
    public async Task<ActionResult> DeletePost(
       [FromRoute] string boardName,
       [FromRoute] int topicId,
@@ -192,7 +192,7 @@ public async Task<ActionResult<Topic>> CreateTopic(
    }
    // LOCK AND PIN
    [HttpPut("{id}/lock")]
-   [Authorize(Roles = "Admin, Moderator")]
+   [Authorize(Roles = "Admin,Moderator")]
    public async Task<ActionResult> LockTopic(
       [FromRoute] string boardName,
       [FromRoute] int id,
@@ -211,7 +211,7 @@ public async Task<ActionResult<Topic>> CreateTopic(
       return Ok(new{message = topic.IsLocked ? "Topic Locked" : "Topic unlocked"});
    }
    [HttpPut("{id}/pin")]
-   [Authorize(Roles = "Admin, Moderator")]
+   [Authorize(Roles = "Admin,Moderator")]
    public async Task<ActionResult> PinTopic(
       [FromRoute] string boardName,
       [FromRoute] int id,
