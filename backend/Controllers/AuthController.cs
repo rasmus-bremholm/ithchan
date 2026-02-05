@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using backend.Services;
 using backend.Models;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace backend.Controllers;
@@ -18,7 +19,8 @@ public class AuthController : ControllerBase
    }
 
    [HttpPost("register")]
-   public async Task<ActionResult> Register(RegisterRequest request)
+   [Authorize(Roles = "Admin")]
+   public async Task<ActionResult> Register([FromBody]RegisterRequest request)
    {
       var user = await _authService.RegisterAsync(request.Username, request.Password, request.Role);
 

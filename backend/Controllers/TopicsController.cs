@@ -5,6 +5,7 @@ using backend.Models;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers;
 
@@ -141,6 +142,53 @@ public async Task<ActionResult<Topic>> CreateTopic(
       await _context.SaveChangesAsync();
 
       return Ok(post);
+   }
+
+   //Honestly just copy this method for the pinned post.
+   // Delete POST
+   [HttpDelete("{topicId}/posts/{postId}")]
+   [Authorize(Roles = "Moderator, Admin")]
+   public async Task<ActionResult> DeletePost(
+      [FromRoute] string boardName,
+      [FromRoute] int topicId,
+      [FromRoute] int postId)
+   {
+      var post = await _context.Posts.FindAsync(postId);
+
+      if(post == null)
+      {
+         return NotFound(new {error="Post not found"});
+      }
+
+      var topic = await _context.Topics.FindAsync(topicId);
+      if(topic == null || topic.BoardName != boardName || post.TopicId != topicId)
+      {
+         return NotFound(new {error="Post not found in this topic"});
+      }
+
+      post.IsDeleted = true;
+      await _context.SaveChangesAsync();
+
+      return Ok(new {message = "Post deleted"});
+   }
+   // Delete TOPIC
+   [HttpDelete("{id}")]
+   [Authorize(Roles = "Admin")]
+   public async Task<ActionResult> DeleteTopic(
+      [FromRoute] string boardName,
+      [FromRoute] int id)
+   {
+      var topic = await _context.Topics.FindAsync(id);
+
+      if(topic == null || topic.BoardName != boardName)
+      {
+         return NotFound(new{error= "Topic cant be found"});
+      }
+
+      _context.Topics.Remove(topic);
+      await _context.SaveChangesAsync();
+
+      return Ok(new {message = "Topic Deleted"});
    }
 }
 
