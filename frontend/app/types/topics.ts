@@ -1,3 +1,5 @@
+import type { Post } from "./posts";
+
 export interface Topic {
 	id: number;
 	boardName: string;
@@ -7,5 +9,5 @@ export interface Topic {
 	createdAt: string;
 	lastBumpedAt: string;
 	board: null;
-	posts: [];
+	posts: Post[];
 }
