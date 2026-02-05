@@ -190,6 +190,45 @@ public async Task<ActionResult<Topic>> CreateTopic(
 
       return Ok(new {message = "Topic Deleted"});
    }
+   // LOCK AND PIN
+   [HttpPut("{id}/lock")]
+   [Authorize(Roles = "Admin, Moderator")]
+   public async Task<ActionResult> LockTopic(
+      [FromRoute] string boardName,
+      [FromRoute] int id,
+      [FromBody] LockTopicRequest request)
+   {
+      var topic = await _context.Topics.FindAsync(id);
+
+      if(topic == null || topic.BoardName != boardName)
+      {
+         return NotFound(new{error="Topic not found"});
+      }
+
+      topic.IsLocked = request.IsLocked;
+      await _context.SaveChangesAsync();
+
+      return Ok(new{message = topic.IsLocked ? "Topic Locked" : "Topic unlocked"});
+   }
+   [HttpPut("{id}/pin")]
+   [Authorize(Roles = "Admin, Moderator")]
+   public async Task<ActionResult> PinTopic(
+      [FromRoute] string boardName,
+      [FromRoute] int id,
+      [FromBody] PinTopicRequest request)
+   {
+      var topic = await _context.Topics.FindAsync(id);
+
+      if(topic == null || topic.BoardName != boardName)
+      {
+         return NotFound(new{error="Topic not found"});
+      }
+
+      topic.IsPinned = request.IsPinned;
+      await _context.SaveChangesAsync();
+
+      return Ok(new{message = topic.IsLocked ? "Topic Pinned" : "Topic Unpinned"});
+   }
 }
 
 // Add this at the bottom of TopicsController.cs, outside the class
@@ -222,4 +261,14 @@ public class CreatePostRequest
    [MinLength(1, ErrorMessage = "Content can't be empty")]
    public string Content {get; set;} = string.Empty;
    public IFormFile? Image {get; set;}
+}
+
+public class LockTopicRequest
+{
+   public bool IsLocked {get; set;}
+}
+
+public class PinTopicRequest
+{
+   public bool IsPinned {get; set;}
 }
