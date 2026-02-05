@@ -5,7 +5,7 @@ export default async function getAllBoards() {
 	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 	if (!baseUrl) throw new Error("NEXT_PUBLIC_BASE_URL is not defined.");
 
-	const response = await fetch(baseUrl, {
+	const response = await fetch(`${baseUrl}/boards`, {
 		next: { revalidate: 120 },
 	});
 

@@ -1,8 +1,11 @@
-import { Container, Typography, Box } from "@mui/material";
+import { Container, Typography, Box, Link as MuiLink } from "@mui/material";
 import getAllBoards from "./actions/getAllBoards";
+import Link from "next/link";
+import StyledLink from "./components/StyledLink";
 
 export default async function Home() {
 	const boards = await getAllBoards();
+	console.log(boards);
 
 	return (
 		<Container>
@@ -10,14 +13,23 @@ export default async function Home() {
 				<Typography variant='h1'>ITHCHAN</Typography>
 				<Box>
 					<Typography variant='h4'>Boards</Typography>
-					<Box>{boards && boards.map((board) => <Typography key={board.Name}>{board.Name}</Typography>)}</Box>
+					<Box>
+						{boards &&
+							boards.map((board) => (
+								<StyledLink key={board.name} href={`/${board.name}/`} color='primary'>
+									<Typography>
+										{board.name} - {board.title}
+									</Typography>
+								</StyledLink>
+							))}
+					</Box>
 				</Box>
 				<Box>
 					<Typography variant='h4'>Popular Threads</Typography>
 				</Box>
 				<Box>
 					<Typography variant='h4'>Stats</Typography>
-					<Box>
+					<Box sx={{ display: "flex", gap: 2 }}>
 						<Typography>Total Posts: </Typography>
 						<Typography>Current Users: </Typography>
 						<Typography>Active Content: </Typography>

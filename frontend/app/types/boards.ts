@@ -1,6 +1,7 @@
 export interface Board {
-	Name: string;
-	Title: string;
-	Description: string;
-	Topics: [];
+	name: string;
+	title: string;
+	description: string;
+	topics: [];
 }
+
