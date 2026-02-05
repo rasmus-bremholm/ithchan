@@ -1,11 +1,13 @@
 import { Container, Typography, Box, Link as MuiLink } from "@mui/material";
 import getAllBoards from "./actions/getAllBoards";
+import getTopicsOnBoard from "./actions/getTopicsOnBoard";
 import Link from "next/link";
 import StyledLink from "./components/StyledLink";
 
 export default async function Home() {
 	const boards = await getAllBoards();
-	console.log(boards);
+	const topics = await getTopicsOnBoard("v");
+	console.log(topics);
 
 	return (
 		<Container>
