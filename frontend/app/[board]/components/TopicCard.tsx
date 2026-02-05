@@ -7,16 +7,30 @@ interface TopicCardProps {
 }
 
 export default function TopicCard({ topic }: TopicCardProps) {
+	if (!topic.posts || topic.posts.length === 0) {
+		return null;
+	}
 	const firstPost = topic.posts[0];
 	console.log(firstPost.name);
 
-	//{firstPost.thumbnailPath && <Image src={`http://localhost:5041/uploads/${firstPost.thumbnailPath}`} height={100} width={150} alt='' />}
+	//
 
 	return (
 		<>
-			<Box sx={{ display: "flex" }}>
-				<Box>
-					<Typography>{topic.subject}</Typography>
+			<Box sx={{ display: "flex", gap: 2 }}>
+				<Box sx={{ width: 200, height: 200, position: "relative", overflow: "hidden", p: 2 }}>
+					{firstPost.thumbnailPath && (
+						<Image
+							src={`http://localhost:5041/${firstPost.thumbnailPath}`}
+							height={200}
+							width={200}
+							alt={topic.subject}
+							style={{ objectFit: "cover", objectPosition: "center" }}
+						/>
+					)}
+				</Box>
+				<Box sx={{ p: 2 }}>
+					<Typography>{firstPost.name}</Typography>
 				</Box>
 			</Box>
 			<Divider />

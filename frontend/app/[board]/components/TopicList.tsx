@@ -12,10 +12,9 @@ export default async function TopicList({ board }: TopicListProps) {
 
 	return (
 		<>
-			{topics.map((topic) => {
-				const firstPost = topic.posts[0];
-				return <TopicCard key={topic.id} topic={topic} />;
-			})}
+			{topics.map((topic) => (
+				<TopicCard key={topic.id} topic={topic} />
+			))}
 		</>
 	);
 }
