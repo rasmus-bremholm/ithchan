@@ -10,7 +10,7 @@ export default async function BoardPage({ params }: { params: Params }) {
 
 	return (
 		<Container>
-			<Box>
+			<Box sx={{ mt: 6 }}>
 				<Box>
 					<Typography variant='h1'>/{currentBoard.name}/</Typography>
 					<Typography variant='h4'>{currentBoard.title}</Typography>

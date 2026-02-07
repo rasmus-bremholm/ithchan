@@ -1,6 +1,7 @@
 import { Topic } from "@/app/types/topics";
 import { Box, Divider, Typography } from "@mui/material";
 import Image from "next/image";
+import StyledLink from "@/app/components/StyledLink";
 
 interface TopicCardProps {
 	topic: Topic;
@@ -17,23 +18,48 @@ export default function TopicCard({ topic }: TopicCardProps) {
 
 	return (
 		<>
-			<Box sx={{ display: "flex", gap: 2 }}>
-				<Box sx={{ width: 200, height: 200, position: "relative", overflow: "hidden", p: 2 }}>
-					{firstPost.thumbnailPath && (
+			{/* OP Post */}
+			<Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+				{/* Thumbnail */}
+				{firstPost.thumbnailPath && (
+					<Box sx={{ flexShrink: 0 }}>
 						<Image
 							src={`http://localhost:5041/${firstPost.thumbnailPath}`}
-							height={200}
-							width={200}
+							height={150}
+							width={150}
 							alt={topic.subject}
-							style={{ objectFit: "cover", objectPosition: "center" }}
+							style={{ objectFit: "cover" }}
 						/>
-					)}
-				</Box>
-				<Box sx={{ p: 2 }}>
-					<Typography>{firstPost.name}</Typography>
+					</Box>
+				)}
+
+				{/* OP Content */}
+				<Box>
+					<Typography variant='subtitle2' color='success.main'>
+						{firstPost.name}
+					</Typography>
+					<Typography variant='h6' sx={{ fontWeight: "bold", my: 1 }}>
+						{topic.subject}
+					</Typography>
+					<Typography variant='body2'>{firstPost.content}</Typography>
 				</Box>
 			</Box>
-			<Divider />
+
+			{/* Reply Posts (skip first post, show next 2) */}
+			<Box sx={{ ml: 4, borderLeft: "2px solid #444", pl: 2 }}>
+				{topic.posts.slice(1, 3).map((post) => (
+					<Box key={post.id} sx={{ mb: 1, bgcolor: "#818181" }}>
+						<Typography variant='subtitle2' color='success.main'>
+							{post.name}
+						</Typography>
+						<Typography variant='body2'>{post.content}</Typography>
+					</Box>
+				))}
+
+				<StyledLink href={`/${topic.boardName}/${topic.id}`}>View full thread →</StyledLink>
+			</Box>
+
+			<Divider sx={{ my: 3 }} />
 		</>
 	);
 }
