@@ -1,6 +1,8 @@
 import { Topic } from "@/app/types/topics";
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Divider, Typography, Link as MuiLink, IconButton } from "@mui/material";
 import Image from "next/image";
+import { MoreVert } from "@mui/icons-material";
+import Link from "next/link";
 import StyledLink from "@/app/components/StyledLink";
 
 interface TopicCardProps {
@@ -12,53 +14,38 @@ export default function TopicCard({ topic }: TopicCardProps) {
 		return null;
 	}
 	const firstPost = topic.posts[0];
-	console.log(firstPost.name);
+	const preiewPosts = topic.posts.slice(1, 3);
+	const backendUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 	//
 
 	return (
 		<>
-			{/* OP Post */}
-			<Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-				{/* Thumbnail */}
-				{firstPost.thumbnailPath && (
-					<Box sx={{ flexShrink: 0 }}>
-						<Image
-							src={`http://localhost:5041/${firstPost.thumbnailPath}`}
-							height={150}
-							width={150}
-							alt={topic.subject}
-							style={{ objectFit: "cover" }}
-						/>
-					</Box>
-				)}
-
-				{/* OP Content */}
+			<Box sx={{ py: 2 }}>
+				{/* Main Topic Card */}
 				<Box>
-					<Typography variant='subtitle2' color='success.main'>
-						{firstPost.name}
-					</Typography>
-					<Typography variant='h6' sx={{ fontWeight: "bold", my: 1 }}>
-						{topic.subject}
-					</Typography>
-					<Typography variant='body2'>{firstPost.content}</Typography>
+					{/* OP Image */}
+					{firstPost?.thumbnailPath && (
+						<Box sx={{ flexShrink: 0 }}>
+							<Image
+								src={`${backendUrl}/${firstPost.thumbnailPath}`}
+								width={200}
+								height={200}
+								alt={topic.subject}
+								style={{ objectFit: "cover" }}
+							/>
+						</Box>
+					)}
+					{/* OP Content */}
+					<Box sx={{ flex: 1 }}>
+						<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 1 }}>
+							<Typography variant='h6' component='h2' sx={{ fontWeight: 600 }}>
+								{topic.subject}
+							</Typography>
+						</Box>
+					</Box>
 				</Box>
 			</Box>
-
-			{/* Reply Posts (skip first post, show next 2) */}
-			<Box sx={{ ml: 4, borderLeft: "2px solid #444", pl: 2 }}>
-				{topic.posts.slice(1, 3).map((post) => (
-					<Box key={post.id} sx={{ mb: 1, bgcolor: "#818181" }}>
-						<Typography variant='subtitle2' color='success.main'>
-							{post.name}
-						</Typography>
-						<Typography variant='body2'>{post.content}</Typography>
-					</Box>
-				))}
-
-				<StyledLink href={`/${topic.boardName}/${topic.id}`}>View full thread →</StyledLink>
-			</Box>
-
 			<Divider sx={{ my: 3 }} />
 		</>
 	);
