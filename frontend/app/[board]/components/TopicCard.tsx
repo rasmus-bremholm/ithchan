@@ -11,7 +11,7 @@ interface TopicCardProps {
 
 export default function TopicCard({ topic }: TopicCardProps) {
 	const [firstPost, ...replies] = topic.posts;
-	const previewReplies = replies.slice(0, 2);
+	const previewReplies = replies.slice(0, 5);
 	const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 	return (
@@ -37,12 +37,12 @@ export default function TopicCard({ topic }: TopicCardProps) {
 								{topic.subject}
 							</Typography>
 							<IconButton size='small' sx={{ mt: -1 }}>
-								<MoreVertIcon />
+								<MoreVertIcon sx={{ color: "text.secondary" }} />
 							</IconButton>
 						</Box>
 
 						<Typography variant='body2' sx={{ color: "text.secondary", mb: 1 }}>
-							{firstPost?.name || "Anonymous"} • {new Date(topic.createdAt).toLocaleString()} • No.{topic.id}
+							{firstPost?.name || "Anonymous"} • {new Date(topic.createdAt).toLocaleString()} • No.{firstPost.id}
 						</Typography>
 
 						<Typography variant='body1' sx={{ mb: 2 }}>

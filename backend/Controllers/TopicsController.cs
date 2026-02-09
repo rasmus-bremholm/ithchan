@@ -28,7 +28,7 @@ public class TopicsController : ControllerBase
    {
       var topics = await _context.Topics
       .Where(t => t.BoardName == boardName)
-      .Include(t => t.Posts.OrderBy(p => p.CreatedAt).Take(3))
+      .Include(t => t.Posts.OrderBy(p => p.CreatedAt).Take(6))
       .ToListAsync();
 
       return Ok(topics);
