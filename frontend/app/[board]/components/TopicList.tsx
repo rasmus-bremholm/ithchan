@@ -8,7 +8,6 @@ interface TopicListProps {
 export default async function TopicList({ board }: TopicListProps) {
 	// This component is responsiable for fetching and rendering topics on the server.
 	const topics = await getTopicsOnBoard(board);
-	console.log(topics);
 
 	return (
 		<>
