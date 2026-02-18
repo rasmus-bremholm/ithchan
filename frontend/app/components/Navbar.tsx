@@ -13,7 +13,7 @@ export default async function Navbar() {
 			</Stack>
 			<Stack direction='row' sx={{ flex: 1, gap: 1, mx: 1 }}>
 				{boards.map((board) => (
-					<StyledLink key={board.title} href={board.name}>
+					<StyledLink key={board.title} href={`/${board.name}`}>
 						/{board.name}/
 					</StyledLink>
 				))}
