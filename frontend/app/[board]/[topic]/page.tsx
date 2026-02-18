@@ -1,6 +1,7 @@
 import { Container, Box, Typography, IconButton } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { getTopicWithPosts } from "@/app/actions/getTopicWithPosts";
 import { formatPostContent } from "@/app/utils/textFormatter";
 import PostCard from "../components/PostCard";
