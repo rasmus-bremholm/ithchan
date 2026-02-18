@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import type { Post } from "@/app/types/posts";
+import { formatPostContent } from "@/app/utils/textFormatter";
 
 interface PostCardProps {
 	post: Post;
@@ -14,27 +15,20 @@ export default function PostCard({ post, backendUrl }: PostCardProps) {
 				display: "flex",
 				gap: 2,
 				p: 2,
-				border: "1px solid",
-				borderColor: "divider",
+				bgcolor: "background.paper",
 				borderRadius: 1,
 			}}>
 			{post.thumbnailPath && (
 				<Box sx={{ flexShrink: 0 }}>
-					<Image
-						src={`${backendUrl}/${post.thumbnailPath}`}
-						width={80}
-						height={80}
-						alt='reply'
-						style={{ objectFit: "cover", borderRadius: 4 }}
-					/>
+					<Image src={`${backendUrl}/${post.thumbnailPath}`} width={80} height={80} alt='reply' style={{ objectFit: "cover", borderRadius: 4 }} />
 				</Box>
 			)}
 
 			<Box>
 				<Typography variant='body2' sx={{ color: "text.secondary", mb: 0.5 }}>
-					{post.name} • No.{post.id}
+					{post.name} No.{post.id}
 				</Typography>
-				<Typography variant='body2'>{post.content}</Typography>
+				{formatPostContent(post.content)}
 			</Box>
 		</Box>
 	);

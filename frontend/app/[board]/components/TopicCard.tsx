@@ -1,9 +1,12 @@
 import { Box, Typography, IconButton, Divider } from "@mui/material";
 import Image from "next/image";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import PushPinIcon from "@mui/icons-material/PushPin";
+import LockIcon from "@mui/icons-material/Lock";
 import StyledLink from "@/app/components/StyledLink";
 import PostCard from "./PostCard";
 import type { Topic } from "@/app/types/topics";
+import { formatPostContent } from "@/app/utils/textFormatter";
 
 interface TopicCardProps {
 	topic: Topic;
@@ -16,7 +19,7 @@ export default function TopicCard({ topic }: TopicCardProps) {
 
 	return (
 		<>
-			<Box sx={{ py: 3 }}>
+			<Box sx={{ p: 3, my: 3, border: "1px solid", borderColor: "divider", borderRadius: 1 }}>
 				{/* OP */}
 				<Box sx={{ display: "flex", gap: 3, position: "relative" }}>
 					{firstPost?.thumbnailPath && (
@@ -36,18 +39,21 @@ export default function TopicCard({ topic }: TopicCardProps) {
 							<Typography variant='h6' component='h2' sx={{ fontWeight: 600 }}>
 								{topic.subject}
 							</Typography>
+							<Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+								{/* Pinned And Locked Icons */}
+								{topic.isPinned && <PushPinIcon sx={{ fontSize: 20, color: "text.secondary" }} />}
+								{topic.isLocked && <LockIcon sx={{ fontSize: 20, color: "text.secondary" }} />}
+							</Box>
 							<IconButton size='small' sx={{ mt: -1 }}>
 								<MoreVertIcon sx={{ color: "text.secondary" }} />
 							</IconButton>
 						</Box>
 
 						<Typography variant='body2' sx={{ color: "text.secondary", mb: 1 }}>
-							{firstPost?.name || "Anonymous"} • {new Date(topic.createdAt).toLocaleString()} • No.{firstPost.id}
+							{firstPost?.name || "Anonymous"} - {new Date(topic.createdAt).toLocaleString()} - No.{firstPost.id}
 						</Typography>
 
-						<Typography variant='body1' sx={{ mb: 2 }}>
-							{firstPost?.content}
-						</Typography>
+						<Box sx={{ mb: 2, flex: 1 }}>{formatPostContent(firstPost?.content)}</Box>
 
 						<Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
 							<Typography variant='body2' sx={{ color: "text.secondary" }}>
@@ -56,6 +62,7 @@ export default function TopicCard({ topic }: TopicCardProps) {
 							<Typography variant='body2' sx={{ color: "text.secondary" }}>
 								{topic.posts.filter((p) => p.imagePath).length} images
 							</Typography>
+
 							<StyledLink href={`/${topic.boardName}/${topic.id}`} underline='hover'>
 								View Thread
 							</StyledLink>
