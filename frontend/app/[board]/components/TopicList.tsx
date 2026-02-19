@@ -1,6 +1,7 @@
 import getTopicsOnBoard from "@/app/actions/getTopicsOnBoard";
 import TopicCard from "./TopicCard";
 
+
 interface TopicListProps {
 	board: string;
 }

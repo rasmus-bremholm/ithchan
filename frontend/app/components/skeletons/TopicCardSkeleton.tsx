@@ -4,7 +4,7 @@ export default function TopicCardSkeleton() {
 		<>
 			<Box sx={{ p: 3, my: 3, border: "1px solid", borderColor: "divider", borderRadius: 1 }}>
 				<Box sx={{ display: "flex", gap: 3 }}>
-					<Skeleton variant='rectangular' width={200} height={200} sx={{ borderRadius: 8 }} />
+					<Skeleton variant='rectangular' width={200} height={200} sx={{ borderRadius: 1 }} />
 
 					<Box sx={{ flex: 1 }}>
 						<Skeleton variant='text' width='60%' height={32} sx={{ mb: 1 }} />
