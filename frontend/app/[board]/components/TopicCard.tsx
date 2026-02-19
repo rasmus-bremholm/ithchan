@@ -5,6 +5,7 @@ import PushPinIcon from "@mui/icons-material/PushPin";
 import LockIcon from "@mui/icons-material/Lock";
 import StyledLink from "@/app/components/StyledLink";
 import PostCard from "./PostCard";
+import TopicMenu from "./TopicMenu";
 import type { Topic } from "@/app/types/topics";
 import { formatPostContent } from "@/app/utils/textFormatter";
 
@@ -44,9 +45,7 @@ export default function TopicCard({ topic }: TopicCardProps) {
 								{topic.isPinned && <PushPinIcon sx={{ fontSize: 20, color: "text.secondary" }} />}
 								{topic.isLocked && <LockIcon sx={{ fontSize: 20, color: "text.secondary" }} />}
 							</Box>
-							<IconButton size='small' sx={{ mt: -1 }}>
-								<MoreVertIcon sx={{ color: "text.secondary" }} />
-							</IconButton>
+							<TopicMenu />
 						</Box>
 
 						<Typography variant='body2' sx={{ color: "text.secondary", mb: 1 }}>
