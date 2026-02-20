@@ -1,3 +1,4 @@
+using backend.Models;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 // I really need to comment more to remember everything.
@@ -20,13 +21,15 @@ public class FileUploadService
       Directory.CreateDirectory(_thumbnailsPath);
    }
 
-   public async Task<(string imagePath, string thumbnailPath)> SaveImageAsync(IFormFile file)
+   public async Task<ImageData> SaveImageAsync(IFormFile file)
    {
       // Basically generate a filename and file ending from the uploaded file.
       var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
       var fullPath = Path.Combine(_uploadsPath, fileName);
       var thumbnailFileName = $"thumb_{fileName}";
       var thumbnailFullPath = Path.Combine(_thumbnailsPath, thumbnailFileName);
+      int width = 0;
+      int height = 0;
 
 
       // Save Image to Disk
@@ -38,6 +41,9 @@ public class FileUploadService
       //Generate thumbnail
       using (var image = await Image.LoadAsync(fullPath))
       {
+         width = image.Width;
+         height = image.Height;
+
          image.Mutate(x => x.Resize(new ResizeOptions
          {
             Size = new Size(250, 250),
@@ -47,6 +53,14 @@ public class FileUploadService
          await image.SaveAsync(thumbnailFullPath);
       }
 
-      return ($"uploads/{fileName}", $"uploads/thumbnails/{thumbnailFileName}");
+      return new ImageData
+      {
+         ImagePath = $"uploads/{fileName}",
+         ThumbNailPath = $"uploads/thumbnails/{thumbnailFileName}",
+         ImageWidth = width,
+         ImageHeight = height,
+         ImageSize = file.Length,
+         ImageFormat = Path.GetExtension(file.FileName).ToLower()
+      };
    }
 }
