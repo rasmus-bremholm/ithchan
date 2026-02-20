@@ -59,14 +59,11 @@ public async Task<ActionResult<Topic>> CreateTopic(
     _context.Topics.Add(topic);
     await _context.SaveChangesAsync();
 
-    string? imagePath = null;
-    string? thumbnailPath = null;
+    ImageData? image = null;
 
     if(request.Image != null)
       {
-         var paths = await _fileUploadService.SaveImageAsync(request.Image);
-         imagePath = paths.imagePath;
-         thumbnailPath = paths.thumbnailPath;
+         image = await _fileUploadService.SaveImageAsync(request.Image);
       }
 
     var firstPost = new Post
@@ -74,8 +71,7 @@ public async Task<ActionResult<Topic>> CreateTopic(
          TopicId = topic.Id,
          Name = request.Name,
          Content = request.Content,
-         ImagePath = imagePath,
-         ThumbnailPath = thumbnailPath,
+         ImageData = image,
          CreatedAt = DateTime.UtcNow
       };
 
@@ -119,14 +115,11 @@ public async Task<ActionResult<Topic>> CreateTopic(
       //Thread bumping
       topic.LastBumpedAt = DateTime.UtcNow;
 
-      string? imagePath = null;
-      string? thumbnailPath = null;
+      ImageData? image = null;
 
     if(request.Image != null)
       {
-         var paths = await _fileUploadService.SaveImageAsync(request.Image);
-         imagePath = paths.imagePath;
-         thumbnailPath = paths.thumbnailPath;
+         image = await _fileUploadService.SaveImageAsync(request.Image);
       }
 
       var post = new Post
@@ -134,8 +127,7 @@ public async Task<ActionResult<Topic>> CreateTopic(
          TopicId = id,
          Name = request.Name,
          Content = request.Content,
-         ImagePath = imagePath,
-         ThumbnailPath = thumbnailPath,
+         ImageData = image,
          CreatedAt = DateTime.UtcNow
       };
 
