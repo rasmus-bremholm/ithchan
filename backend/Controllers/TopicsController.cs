@@ -16,6 +16,8 @@ public class TopicsController : ControllerBase
    private readonly ApplicationDbContext _context;
    private readonly FileUploadService _fileUploadService;
 
+   private const long MaxFileSizeBytes = 3 * 1024 * 1024;
+
    public TopicsController(ApplicationDbContext context, FileUploadService fileUploadService)
    {
       _context = context;
@@ -63,6 +65,10 @@ public async Task<ActionResult<Topic>> CreateTopic(
 
     if(request.Image != null)
       {
+         if(request.Image.Length > MaxFileSizeBytes)
+         {
+            return BadRequest(new {error = "Filesize is too large, 3Mb maximum"});
+         }
          image = await _fileUploadService.SaveImageAsync(request.Image);
       }
 
@@ -119,6 +125,10 @@ public async Task<ActionResult<Topic>> CreateTopic(
 
     if(request.Image != null)
       {
+         if(request.Image.Length > MaxFileSizeBytes)
+         {
+            return BadRequest(new {error = "Filesize is too large, 3Mb maximum"});
+         }
          image = await _fileUploadService.SaveImageAsync(request.Image);
       }
 
