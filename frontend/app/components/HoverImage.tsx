@@ -19,9 +19,11 @@ export default function HoverImage({ thumbNailPath, imagePath, width, height, or
 	const [expanded, setExpanded] = useState(false);
 
 	const handleMouseEnter = (e: React.MouseEvent) => {
+		const userScale = 0.7;
+
 		// We NEEED clamping *doh*
-		const maxWidth = window.innerWidth * 0.7;
-		const maxHeight = window.innerHeight * 0.7;
+		const maxWidth = window.innerWidth * userScale;
+		const maxHeight = window.innerHeight * userScale;
 		const scale = Math.min(1, maxWidth / orgWidth, maxHeight / orgHeight);
 		const displayWidth = Math.round(orgWidth * scale);
 		const displayHeight = Math.round(orgHeight * scale);
