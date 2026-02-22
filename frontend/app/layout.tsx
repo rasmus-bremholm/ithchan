@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ThemeRegistry from "./utils/ThemeRegistry";
+import { UserPrefsContextProvider } from "./utils/UserPrefContext";
 import Navbar from "./components/Navbar";
 
 export const metadata: Metadata = {
@@ -16,8 +17,10 @@ export default function RootLayout({
 		<html lang='en'>
 			<body>
 				<ThemeRegistry>
-					<Navbar />
-					{children}
+					<UserPrefsContextProvider>
+						<Navbar />
+						{children}
+					</UserPrefsContextProvider>
 				</ThemeRegistry>
 			</body>
 		</html>
