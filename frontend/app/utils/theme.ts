@@ -51,10 +51,12 @@ const baseOptions: ThemeOptions = {
 		MuiIconButton: {
 			styleOverrides: {
 				root: ({ theme }) => ({
-					color: theme.palette.text.secondary,
-					"&:hover": {
+					"& .MuiSvgIcon-root": {
+						color: theme.palette.text.secondary,
+						transition: "color 0.1s",
+					},
+					"&:hover .MuiSvgIcon-root": {
 						color: theme.palette.text.primary,
-						backgroundColor: "transparent",
 					},
 				}),
 			},
