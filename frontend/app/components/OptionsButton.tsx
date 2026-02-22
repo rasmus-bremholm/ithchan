@@ -1,5 +1,5 @@
 "use client";
-import { IconButton, Modal, Box, Typography, Divider } from "@mui/material";
+import { IconButton, Modal, Box, Typography, Divider, Switch, FormGroup, FormControlLabel } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
 import { usePrefsContext } from "../utils/UserPrefContext";
@@ -13,7 +13,7 @@ export default function OptionsButton() {
 	return (
 		<>
 			<IconButton onClick={handleOpen}>
-				<SettingsIcon sx={{ color: "text.secondary" }} />
+				<SettingsIcon sx={{ color: "text.secondary", fontSize: 20 }} />
 			</IconButton>
 			<Modal open={open} onClose={handleClose}>
 				<Box
@@ -39,6 +39,12 @@ export default function OptionsButton() {
 					<Divider />
 					<Box>
 						<Typography variant='h6'>Images</Typography>
+						<FormGroup>
+							<FormControlLabel
+								control={<Switch checked={prefs.hoverExpandImages} onChange={(e) => setPreference("hoverExpandImages", e.target.checked)} />}
+								label='Expand Images on Hover'
+							/>
+						</FormGroup>
 					</Box>
 				</Box>
 			</Modal>
