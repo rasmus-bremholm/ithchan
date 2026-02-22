@@ -24,7 +24,7 @@ export default async function TopicPage({ params }: { params: Params }) {
 					<Box sx={{ display: "flex", gap: 3, position: "relative" }}>
 						<Box sx={{ flexShrink: 0 }}>
 							<Image
-								src={`${backendUrl}/${topicData.posts[0].imagePath}`}
+								src={`${backendUrl}/${topicData.posts[0].imageData?.thumbNailPath}`}
 								width={300}
 								height={300}
 								alt={topicData.subject}
