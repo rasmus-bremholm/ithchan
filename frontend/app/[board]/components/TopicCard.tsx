@@ -4,6 +4,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PushPinIcon from "@mui/icons-material/PushPin";
 import LockIcon from "@mui/icons-material/Lock";
 import StyledLink from "@/app/components/StyledLink";
+import HoverImage from "@/app/components/HoverImage";
 import PostCard from "./PostCard";
 import TopicMenu from "./TopicMenu";
 import type { Topic } from "@/app/types/topics";
@@ -25,12 +26,15 @@ export default function TopicCard({ topic }: TopicCardProps) {
 				<Box sx={{ display: "flex", gap: 3, position: "relative" }}>
 					{firstPost?.imageData && (
 						<Box sx={{ flexShrink: 0 }}>
-							<Image
-								src={`${backendUrl}/${firstPost.imageData.thumbNailPath}`}
+							<HoverImage
+								thumbNailPath={`${backendUrl}/${firstPost.imageData.thumbNailPath}`}
+								imagePath={`${backendUrl}/${firstPost.imageData.imagePath}`}
 								width={200}
 								height={200}
+								orgWidth={firstPost.imageData.imageWidth}
+								orgHeight={firstPost.imageData.imageHeight}
 								alt={topic.subject}
-								style={{ objectFit: "cover", borderRadius: 8 }}
+								borderRadius={8}
 							/>
 						</Box>
 					)}
