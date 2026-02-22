@@ -30,8 +30,22 @@ public class TopicsController : ControllerBase
    {
       var topics = await _context.Topics
       .Where(t => t.BoardName == boardName)
-      .Include(t => t.Posts.OrderBy(p => p.CreatedAt).Take(6))
       .ToListAsync();
+
+      var topicIds = topics.Select(t => t.Id).ToList();
+
+      var posts = await _context.Posts
+         .Where(p => topicIds.Contains(p.TopicId))
+         .Include(p => p.ImageData)
+         .OrderBy(p => p.CreatedAt)
+         .ToListAsync();
+
+      foreach (var topic in topics)
+      {
+         topic.Posts = posts.Where(p => p.TopicId == topic.Id)
+         .Take(6)
+         .ToList();
+      }
 
       return Ok(topics);
    }
@@ -94,6 +108,7 @@ public async Task<ActionResult<Topic>> CreateTopic(
    {
       var topic = await _context.Topics
       .Include(t => t.Posts)
+         .ThenInclude(p => p.ImageData)
       .FirstOrDefaultAsync(t => t.Id == id && t.BoardName == boardName);
 
       if(topic == null)
