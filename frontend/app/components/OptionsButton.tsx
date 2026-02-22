@@ -36,6 +36,10 @@ export default function OptionsButton() {
 							<CloseIcon sx={{ color: "text.secondary" }} />
 						</IconButton>
 					</Box>
+					<Divider />
+					<Box>
+						<Typography variant='h6'>Images</Typography>
+					</Box>
 				</Box>
 			</Modal>
 		</>

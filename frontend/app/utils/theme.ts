@@ -42,8 +42,28 @@ const baseOptions: ThemeOptions = {
 		MuiDivider: {
 			styleOverrides: {
 				root: ({ theme }) => ({
-					borderColor: theme.palette.divider,
+					borderColor: theme.palette.text.secondary,
+					opacity: 0.3,
+					my: 3,
 				}),
+			},
+		},
+		MuiIconButton: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					color: theme.palette.text.secondary,
+					"&:hover": {
+						color: theme.palette.text.primary,
+						backgroundColor: "transparent",
+					},
+				}),
+			},
+		},
+		MuiSvgIcon: {
+			styleOverrides: {
+				root: {
+					color: "inherit",
+				},
 			},
 		},
 	},
