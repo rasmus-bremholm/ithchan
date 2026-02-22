@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import HoverImage from "@/app/components/HoverImage";
 import type { Post } from "@/app/types/posts";
 import { formatPostContent } from "@/app/utils/textFormatter";
 
@@ -20,12 +21,15 @@ export default function PostCard({ post, backendUrl }: PostCardProps) {
 			}}>
 			{post.imageData && (
 				<Box sx={{ flexShrink: 0 }}>
-					<Image
-						src={`${backendUrl}/${post.imageData.thumbNailPath}`}
+					<HoverImage
+						thumbNailPath={`${backendUrl}/${post.imageData.thumbNailPath}`}
+						imagePath={`${backendUrl}/${post.imageData.imagePath}`}
+						alt='reply'
 						width={100}
 						height={100}
-						alt='reply'
-						style={{ objectFit: "cover", borderRadius: 4 }}
+						orgWidth={post.imageData.imageWidth}
+						orgHeight={post.imageData.imageHeight}
+						borderRadius={4}
 					/>
 				</Box>
 			)}
