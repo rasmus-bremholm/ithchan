@@ -1,6 +1,7 @@
 import { Box, Typography, Stack, Container } from "@mui/material";
 import StyledLink from "./StyledLink";
 import getAllBoards from "../actions/getAllBoards";
+import OptionsButton from "./OptionsButton";
 
 export default async function Navbar() {
 	const boards = await getAllBoards();
@@ -17,6 +18,9 @@ export default async function Navbar() {
 						/{board.name}/
 					</StyledLink>
 				))}
+			</Stack>
+			<Stack direction='row'>
+				<OptionsButton />
 			</Stack>
 		</Container>
 	);
