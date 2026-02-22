@@ -18,9 +18,15 @@ export default function PostCard({ post, backendUrl }: PostCardProps) {
 				bgcolor: "background.paper",
 				borderRadius: 1,
 			}}>
-			{post.thumbnailPath && (
+			{post.imageData && (
 				<Box sx={{ flexShrink: 0 }}>
-					<Image src={`${backendUrl}/${post.thumbnailPath}`} width={80} height={80} alt='reply' style={{ objectFit: "cover", borderRadius: 4 }} />
+					<Image
+						src={`${backendUrl}/${post.imageData.thumbNailPath}`}
+						width={100}
+						height={100}
+						alt='reply'
+						style={{ objectFit: "cover", borderRadius: 4 }}
+					/>
 				</Box>
 			)}
 

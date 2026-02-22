@@ -23,10 +23,10 @@ export default function TopicCard({ topic }: TopicCardProps) {
 			<Box sx={{ p: 3, my: 3, border: "1px solid", borderColor: "divider", borderRadius: 1 }}>
 				{/* OP */}
 				<Box sx={{ display: "flex", gap: 3, position: "relative" }}>
-					{firstPost?.thumbnailPath && (
+					{firstPost?.imageData && (
 						<Box sx={{ flexShrink: 0 }}>
 							<Image
-								src={`${backendUrl}/${firstPost.thumbnailPath}`}
+								src={`${backendUrl}/${firstPost.imageData.thumbNailPath}`}
 								width={200}
 								height={200}
 								alt={topic.subject}
@@ -59,7 +59,7 @@ export default function TopicCard({ topic }: TopicCardProps) {
 								{replies.length} replies
 							</Typography>
 							<Typography variant='body2' sx={{ color: "text.secondary" }}>
-								{topic.posts.filter((p) => p.imagePath).length} images
+								{topic.posts.filter((p) => p.imageData?.imageSize).length} images
 							</Typography>
 
 							<StyledLink href={`/${topic.boardName}/${topic.id}`} underline='hover'>
