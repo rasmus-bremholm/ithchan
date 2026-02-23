@@ -1,7 +1,7 @@
 import { Container, Box, Typography, IconButton } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
+import StyledLink from "@/app/components/StyledLink";
 import { getTopicWithPosts } from "@/app/actions/getTopicWithPosts";
 import { formatPostContent } from "@/app/utils/textFormatter";
 import PostCard from "../components/PostCard";
@@ -19,6 +19,12 @@ export default async function TopicPage({ params }: { params: Params }) {
 
 		return (
 			<Container>
+				<Box component='nav' sx={{ display: "flex", alignItems: "center", my: 2 }}>
+					<Box sx={{ flex: 1, display: "flex", alignItems: "center", gap: 2 }}>
+						<StyledLink href={`/${board}/`}>Index</StyledLink>
+						<StyledLink href='/'>Catalog</StyledLink>
+					</Box>
+				</Box>
 				<Box sx={{ p: 3, my: 3 }}>
 					{/* OP */}
 					<Box sx={{ display: "flex", gap: 3, position: "relative" }}>

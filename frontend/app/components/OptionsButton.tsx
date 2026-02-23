@@ -1,5 +1,5 @@
 "use client";
-import { IconButton, Modal, Box, Typography, Divider, Switch, FormGroup, FormControlLabel, Slider } from "@mui/material";
+import { IconButton, Modal, Box, Typography, Divider, Switch, FormGroup, FormControlLabel, Slider, Select, MenuItem } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
 import { usePrefsContext } from "../utils/UserPrefContext";
@@ -26,7 +26,8 @@ export default function OptionsButton() {
 						transform: "translate(-50%, -50%)",
 						width: 600,
 						bgcolor: "background.paper",
-						p: 2,
+						p: 3,
+						borderRadius: 1,
 					}}>
 					<Box sx={{ display: "flex", alignItems: "center" }}>
 						<Typography variant='h5' sx={{ flex: 1 }}>
@@ -55,6 +56,20 @@ export default function OptionsButton() {
 									value={prefs.hoverScaleFactor}
 									onChange={(_, value) => setPreference("hoverScaleFactor", value as number)}
 								/>
+							</Box>
+							<Divider />
+							<Typography variant='h6'>Thread Behaviour</Typography>
+							<Box>
+								<Typography>Default sorting order</Typography>
+								<Select
+									size='small'
+									value={prefs.sortOrder}
+									onChange={(e) => setPreference("sortOrder", e.target.value as "bumpOrder" | "newest" | "oldest" | "mostPosts")}>
+									<MenuItem value='bumpOrder'>Bump Order</MenuItem>
+									<MenuItem value='newest'>Newest</MenuItem>
+									<MenuItem value='oldest'>Oldest</MenuItem>
+									<MenuItem value='mostPosts'>Most Posts</MenuItem>
+								</Select>
 							</Box>
 						</Box>
 					</Box>

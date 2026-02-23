@@ -1,5 +1,6 @@
 import getTopicsOnBoard from "@/app/actions/getTopicsOnBoard";
 import TopicCard from "./TopicCard";
+import TopicListClient from "./TopicsListClient";
 
 interface TopicListProps {
 	board: string;
@@ -7,24 +8,8 @@ interface TopicListProps {
 
 export default async function TopicList({ board }: TopicListProps) {
 	// This component is responsiable for fetching and rendering topics on the server.
+	// We now moved the sorting to a client component. TopicListClient that only handles sorting.
 	const topics = await getTopicsOnBoard(board);
 
-	{
-		/* Here we need to handle topic sorting, and hidden topics */
-	}
-	const sortedTopics = topics.sort((a, b) => {
-		if (a.isPinned && !b.isPinned) return -1;
-		if (!a.isPinned && b.isPinned) return 1;
-		return new Date(b.lastBumpedAt).getTime() - new Date(a.lastBumpedAt).getTime();
-	});
-
-	console.log(sortedTopics);
-
-	return (
-		<>
-			{sortedTopics.map((topic) => (
-				<TopicCard key={topic.id} topic={topic} />
-			))}
-		</>
-	);
+	return <TopicListClient topics={topics} />;
 }

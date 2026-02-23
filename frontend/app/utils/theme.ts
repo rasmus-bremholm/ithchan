@@ -1,15 +1,34 @@
 "use client";
 import { createTheme, responsiveFontSizes, ThemeOptions } from "@mui/material/styles";
 
+declare module "@mui/material/styles" {
+	interface TypographyVariants {
+		postMeta: React.CSSProperties;
+	}
+	interface TypographyVariantsOptions {
+		postMeta?: React.CSSProperties;
+	}
+}
+
+declare module "@mui/material/Typography" {
+	interface TypographyPropsVariantOverrides {
+		postMeta: true;
+	}
+}
+
 export type ThemeVariant = "yotsuba" | "tomorrow" | "yotsuba_b" | "dracula";
 
 // General Theming
 
 const baseOptions: ThemeOptions = {
 	typography: {
-		fontFamily: "var(--font-geist-sans), Helvetica, Arial, sans-serif",
+		fontFamily: "var(--font-ibm-plex-sans), sans-serif",
 		h1: { fontWeight: 800, letterSpacing: "-0.02em" },
 		button: { fontWeight: 600, textTransform: "none" },
+
+		body2: {
+			fontFamily: "var(--font-jetbrains-mono), monospace",
+		},
 	},
 	shape: {
 		borderRadius: 10,

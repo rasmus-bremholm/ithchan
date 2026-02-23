@@ -8,12 +8,14 @@ type UserPrefsType = {
 
 	//Threads
 	hiddenThreads: number[];
+	sortOrder: "bumpOrder" | "newest" | "oldest" | "mostPosts";
 };
 
 const defaultPrefs: UserPrefsType = {
 	hoverExpandImages: true,
 	hoverScaleFactor: 0.7,
 	hiddenThreads: [],
+	sortOrder: "bumpOrder",
 };
 
 const UserPrefsContext = createContext<
@@ -26,7 +28,7 @@ export const UserPrefsContextProvider = ({ children }: { children: React.ReactNo
 	// Ok im drawing a blank on the use effect. Do I store everything as a big object?
 	useEffect(() => {
 		const saved = localStorage.getItem("app-user-prefs");
-		if (saved) setPrefs(JSON.parse(saved));
+		if (saved) setPrefs({ ...defaultPrefs, ...JSON.parse(saved) });
 	}, []);
 
 	const setPreference = <K extends keyof UserPrefsType>(key: K, value: UserPrefsType[K]) => {
