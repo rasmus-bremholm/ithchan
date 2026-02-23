@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Box } from "@mui/material";
 import { useState } from "react";
+import { usePrefsContext } from "../utils/UserPrefContext";
 
 interface HoverImageProps {
 	thumbNailPath: string;
@@ -17,13 +18,14 @@ interface HoverImageProps {
 export default function HoverImage({ thumbNailPath, imagePath, width, height, orgWidth, orgHeight, alt, borderRadius }: HoverImageProps) {
 	const [hoverPos, setHoverPos] = useState<{ x: number; y: number; displayWidth: number; displayHeight: number } | null>(null);
 	const [expanded, setExpanded] = useState(false);
+	const { prefs, setPreference } = usePrefsContext();
 
 	const handleMouseEnter = (e: React.MouseEvent) => {
-		const userScale = 0.7;
+		if (!prefs.hoverExpandImages) return;
 
 		// We NEEED clamping *doh*
-		const maxWidth = window.innerWidth * userScale;
-		const maxHeight = window.innerHeight * userScale;
+		const maxWidth = window.innerWidth * prefs.hoverScaleFactor;
+		const maxHeight = window.innerHeight * prefs.hoverScaleFactor;
 		const scale = Math.min(1, maxWidth / orgWidth, maxHeight / orgHeight);
 		const displayWidth = Math.round(orgWidth * scale);
 		const displayHeight = Math.round(orgHeight * scale);

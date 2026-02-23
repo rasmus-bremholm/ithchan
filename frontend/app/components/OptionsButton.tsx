@@ -1,5 +1,5 @@
 "use client";
-import { IconButton, Modal, Box, Typography, Divider, Switch, FormGroup, FormControlLabel } from "@mui/material";
+import { IconButton, Modal, Box, Typography, Divider, Switch, FormGroup, FormControlLabel, Slider } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
 import { usePrefsContext } from "../utils/UserPrefContext";
@@ -36,15 +36,27 @@ export default function OptionsButton() {
 							<CloseIcon sx={{ color: "text.secondary" }} />
 						</IconButton>
 					</Box>
-					<Divider />
+					<Divider sx={{ my: 3 }} />
 					<Box>
-						<Typography variant='h6'>Images</Typography>
-						<FormGroup>
-							<FormControlLabel
-								control={<Switch checked={prefs.hoverExpandImages} onChange={(e) => setPreference("hoverExpandImages", e.target.checked)} />}
-								label='Expand Images on Hover'
-							/>
-						</FormGroup>
+						<Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+							<Typography variant='h6'>Images</Typography>
+
+							<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+								<Typography>Expand images on hover</Typography>
+								<Switch checked={prefs.hoverExpandImages} onChange={(e) => setPreference("hoverExpandImages", e.target.checked)} />
+							</Box>
+
+							<Box>
+								<Typography>Hover image scale: {prefs.hoverScaleFactor}</Typography>
+								<Slider
+									min={0.3}
+									max={1}
+									step={0.1}
+									value={prefs.hoverScaleFactor}
+									onChange={(_, value) => setPreference("hoverScaleFactor", value as number)}
+								/>
+							</Box>
+						</Box>
 					</Box>
 				</Box>
 			</Modal>
