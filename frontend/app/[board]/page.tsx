@@ -3,7 +3,7 @@ import getBoard from "../actions/getBoard";
 import TopicList from "./components/TopicList";
 import { Suspense } from "react";
 import TopicListSkeleton from "../components/skeletons/TopicListSkeleton";
-import TopicsFilterBar from "./components/TopicsFilterBar";
+import BoardFilterBar from "./components/FilterBars/BoardFilterBar";
 
 type Params = Promise<{ board: string }>;
 
@@ -19,7 +19,7 @@ export default async function BoardPage({ params }: { params: Params }) {
 					<Typography variant='h4'>{currentBoard.title}</Typography>
 					<Typography variant='body1'>{currentBoard.description}</Typography>
 				</Box>
-				<TopicsFilterBar />
+				<BoardFilterBar />
 				<Suspense fallback={<TopicListSkeleton />}>
 					<TopicList board={currentBoard.name} />
 				</Suspense>
