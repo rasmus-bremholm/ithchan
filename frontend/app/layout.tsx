@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ThemeRegistry from "./utils/ThemeRegistry";
 import { UserPrefsContextProvider } from "./utils/UserPrefContext";
+import { PostFormContextProvider } from "./utils/PostFormContext";
 import Navbar from "./components/Navbar";
 import { IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
 
@@ -31,8 +32,10 @@ export default function RootLayout({
 			<body>
 				<ThemeRegistry>
 					<UserPrefsContextProvider>
-						<Navbar />
-						{children}
+						<PostFormContextProvider>
+							<Navbar />
+							{children}
+						</PostFormContextProvider>
 					</UserPrefsContextProvider>
 				</ThemeRegistry>
 			</body>
