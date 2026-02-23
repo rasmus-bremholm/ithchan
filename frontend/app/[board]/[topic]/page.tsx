@@ -20,7 +20,7 @@ export default async function TopicPage({ params }: { params: Params }) {
 		return (
 			<Container>
 				<TopicFilterBar board={`${board}`} />
-				<Box sx={{ p: 3, my: 3, border: "1px solid", borderColor: "text.secondary", borderRadius: 1 }}>
+				<Box sx={{ p: 3, my: 3, border: "1px solid", borderColor: "divider", borderRadius: 1 }}>
 					{/* OP */}
 					<Box sx={{ display: "flex", gap: 3, position: "relative" }}>
 						<Box sx={{ flexShrink: 0 }}>

@@ -21,7 +21,7 @@ export default function TopicCard({ topic }: TopicCardProps) {
 
 	return (
 		<>
-			<Box sx={{ p: 3, my: 3, border: "1px solid", borderColor: "text.secondary", borderRadius: 1 }}>
+			<Box sx={{ p: 3, my: 3, border: "1px solid", borderColor: "divider", borderRadius: 1 }}>
 				{/* OP */}
 				<Box sx={{ display: "flex", gap: 3, position: "relative" }}>
 					{firstPost?.imageData && (
