@@ -5,6 +5,7 @@ import { usePostFormContext } from "@/app/utils/PostFormContext";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import Image from "next/image";
 import { postReply } from "@/app/actions/postReply";
+import { useRouter } from "next/navigation";
 
 export default function PostReplyForm() {
 	const { quotedPostId, close, board, topicId } = usePostFormContext();
@@ -16,6 +17,8 @@ export default function PostReplyForm() {
 
 	// I should probably make a function for inserting the quoted post.
 	const initialContent = quotedPostId ? `>>${quotedPostId}\n` : "";
+
+	const router = useRouter();
 
 	const handleImageChange = (file: File) => {
 		setImage(file);
@@ -37,6 +40,7 @@ export default function PostReplyForm() {
 
 		await postReply(board, topicId, formData);
 		close();
+		router.refresh();
 	};
 
 	return (
