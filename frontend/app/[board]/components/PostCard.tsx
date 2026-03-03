@@ -34,11 +34,11 @@ export default function PostCard({ post, backendUrl }: PostCardProps) {
 				</Box>
 			)}
 
-			<Box>
+			<Box sx={{mx: 1}}>
 				<Typography variant='body2' sx={{ color: "text.secondary", mb: 0.5 }}>
 					{post.name} No.{post.id}
 				</Typography>
-				{formatPostContent(post.content)}
+				<Box sx={{ mt: 1 }}>{formatPostContent(post.content)}</Box>
 			</Box>
 		</Box>
 	);
