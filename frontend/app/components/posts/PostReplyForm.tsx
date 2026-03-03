@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePostFormContext } from "@/app/utils/PostFormContext";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import Image from "next/image";
+import { postReply } from "@/app/actions/postReply";
 
 export default function PostReplyForm() {
 	const { quotedPostId, close } = usePostFormContext();
@@ -24,6 +25,17 @@ export default function PostReplyForm() {
 	useEffect(() => {
 		if (quotedPostId) setContent(initialContent);
 	}, [quotedPostId]);
+
+   const handleSubmit = async () => {
+      const formData = new FormData()
+
+      formData.append("name", name || "Anonymous")
+      formData.append("content", content)
+      if(image) formData.append("image", image)
+
+      await postReply(board, topicId, formData)
+      close()
+   }
 
 	return (
 		<Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
