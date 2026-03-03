@@ -7,7 +7,7 @@ import Image from "next/image";
 import { postReply } from "@/app/actions/postReply";
 
 export default function PostReplyForm() {
-	const { quotedPostId, close } = usePostFormContext();
+	const { quotedPostId, close, board, topicId } = usePostFormContext();
 	const [name, setName] = useState("");
 	const [content, setContent] = useState("");
 	const [image, setImage] = useState<File | null>(null);
@@ -26,16 +26,18 @@ export default function PostReplyForm() {
 		if (quotedPostId) setContent(initialContent);
 	}, [quotedPostId]);
 
-   const handleSubmit = async () => {
-      const formData = new FormData()
+	const handleSubmit = async () => {
+		if (!board || !topicId) return;
 
-      formData.append("name", name || "Anonymous")
-      formData.append("content", content)
-      if(image) formData.append("image", image)
+		const formData = new FormData();
 
-      await postReply(board, topicId, formData)
-      close()
-   }
+		formData.append("name", name || "Anonymous");
+		formData.append("content", content);
+		if (image) formData.append("image", image);
+
+		await postReply(board, topicId, formData);
+		close();
+	};
 
 	return (
 		<Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>

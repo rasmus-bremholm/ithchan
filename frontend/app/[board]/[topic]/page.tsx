@@ -21,7 +21,7 @@ export default async function TopicPage({ params }: { params: Params }) {
 		return (
 			<Box sx={{ display: "flex" }}>
 				<Container sx={{ flex: 1, minWidth: 0 }}>
-					<TopicFilterBar board={`${board}`} />
+					<TopicFilterBar board={`${board}`} topicId={parseInt(topic)} />
 					<PostFormDrawer />
 					<Box sx={{ p: 3, my: 3, border: "1px solid", borderColor: "divider", borderRadius: 1 }}>
 						{/* OP */}

@@ -1,6 +1,6 @@
 "use server";
 
-export async function postReply(board: string, topicId: string, formData: FormData) {
+export async function postReply(board: string, topicId: number, formData: FormData) {
 	const backendUrl = process.env.BACKEND_URL;
 
 	const response = await fetch(`${backendUrl}/boards/${board}/topics/${topicId}/reply`, {

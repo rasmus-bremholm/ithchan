@@ -4,7 +4,7 @@ import FilterBar from "./FilterBar";
 import StyledLink from "@/app/components/StyledLink";
 import { usePostFormContext } from "@/app/utils/PostFormContext";
 
-export default function TopicFilterBar({ board }: { board: string }) {
+export default function TopicFilterBar({ board, topicId }: { board: string; topicId: number }) {
 	const { open } = usePostFormContext();
 
 	return (
@@ -14,7 +14,7 @@ export default function TopicFilterBar({ board }: { board: string }) {
 				<StyledLink href='/'>Catalog</StyledLink>
 			</Box>
 			<Box>
-				<Button variant='contained' onClick={() => open()}>
+				<Button variant='contained' onClick={() => open("reply", board, topicId)}>
 					Create Reply
 				</Button>
 			</Box>
