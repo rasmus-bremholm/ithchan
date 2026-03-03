@@ -3,13 +3,12 @@ import { Drawer, Box, Typography, IconButton, Divider, Icon } from "@mui/materia
 import { Close } from "@mui/icons-material";
 import { usePostFormContext } from "@/app/utils/PostFormContext";
 import PostReplyForm from "./PostReplyForm";
+import NewThreadForm from "./NewThreadForm";
 
 const DRAWER_WIDTH = 350;
 
-
-
 export default function PostFormDrawer() {
-	const { isOpen, close } = usePostFormContext();
+	const { isOpen, close, mode } = usePostFormContext();
 
 	return (
 		<Drawer
@@ -31,14 +30,16 @@ export default function PostFormDrawer() {
 			}}>
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				<Typography variant='h6' sx={{ flex: 1 }}>
-					New Post
+					{mode === "reply" ? "Post Reply" : "Create Thread"}
 				</Typography>
 				<IconButton onClick={close}>
 					<Close />
 				</IconButton>
 			</Box>
 			<Divider sx={{ my: 2 }} />
-			<PostReplyForm />
+			{mode === "reply" ?
+				<PostReplyForm />
+			:	<NewThreadForm />}
 			<Divider sx={{ my: 2 }} />
 		</Drawer>
 	);
