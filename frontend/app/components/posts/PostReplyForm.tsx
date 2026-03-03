@@ -41,13 +41,15 @@ export default function PostReplyForm() {
 
 	return (
 		<Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-			<TextField label='Name' placeholder='Anonymous' size='small' value={name} onChange={(e) => setContent(e.target.value)} />
+			<TextField label='Name' placeholder='Anonymous' size='small' value={name} onChange={(e) => setName(e.target.value)} />
 			<TextField label='Content' multiline rows={6} value={content} onChange={(e) => setContent(e.target.value)} />
 			<Box id='controls' sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}>
 				<Button onClick={close} variant='outlined'>
 					Cancel
 				</Button>
-				<Button variant='contained'>Post Reply</Button>
+				<Button variant='contained' onClick={handleSubmit}>
+					Post Reply
+				</Button>
 			</Box>
 			<input
 				ref={fileInputRef}
