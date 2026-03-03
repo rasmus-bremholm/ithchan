@@ -15,8 +15,11 @@ export default function BoardFilterBar() {
 				<TextField size='small' label='Search' />
 			</Box>
 			<Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-				<Button variant='contained'>Create Thread</Button>
+				<Button sx={{ minWidth: 135 }} variant='contained'>
+					Create Thread
+				</Button>
 				<Select
+					sx={{ minWidth: 135 }}
 					size='small'
 					value={prefs.sortOrder}
 					onChange={(e) => setPreference("sortOrder", e.target.value as "bumpOrder" | "newest" | "oldest" | "mostPosts")}>

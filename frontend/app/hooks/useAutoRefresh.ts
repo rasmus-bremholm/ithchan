@@ -9,14 +9,20 @@ export function useAutoRefresh(interval: number = 30) {
 		const timer = setInterval(() => {
 			setCountdown((prev) => {
 				if (prev <= 1) {
-					router.refresh();
 					return interval;
 				}
 				return prev - 1;
 			});
 		}, 1000);
 
-		return () => clearInterval(timer);
+		const refreshTimer = setInterval(() => {
+			router.refresh();
+		}, interval * 1000);
+
+		return () => {
+			clearInterval(timer);
+			clearInterval(refreshTimer);
+		};
 	}, [interval, router]);
 
 	return countdown;

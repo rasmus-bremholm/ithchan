@@ -9,6 +9,7 @@ type UserPrefsType = {
 	//Threads
 	hiddenThreads: number[];
 	sortOrder: "bumpOrder" | "newest" | "oldest" | "mostPosts";
+	refreshInterval: number;
 };
 
 const defaultPrefs: UserPrefsType = {
@@ -16,6 +17,7 @@ const defaultPrefs: UserPrefsType = {
 	hoverScaleFactor: 0.7,
 	hiddenThreads: [],
 	sortOrder: "bumpOrder",
+	refreshInterval: 30,
 };
 
 const UserPrefsContext = createContext<

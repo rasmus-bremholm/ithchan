@@ -1,5 +1,5 @@
 "use client";
-import { IconButton, Modal, Box, Typography, Divider, Switch, FormGroup, FormControlLabel, Slider, Select, MenuItem } from "@mui/material";
+import { IconButton, Modal, Box, Typography, Divider, Switch, FormGroup, FormControlLabel, Slider, Select, MenuItem, TextField } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
 import { usePrefsContext } from "../utils/UserPrefContext";
@@ -59,8 +59,8 @@ export default function OptionsButton() {
 							</Box>
 							<Divider />
 							<Typography variant='h6'>Thread Behaviour</Typography>
-							<Box>
-								<Typography>Default sorting order</Typography>
+							<Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+								<Typography>Default sorting order:</Typography>
 								<Select
 									size='small'
 									value={prefs.sortOrder}
@@ -70,6 +70,12 @@ export default function OptionsButton() {
 									<MenuItem value='oldest'>Oldest</MenuItem>
 									<MenuItem value='mostPosts'>Most Posts</MenuItem>
 								</Select>
+								<Typography>Thread Refresh Interval:</Typography>
+								<TextField
+									placeholder={`${prefs.refreshInterval}s`}
+									type='number'
+									onChange={(e) => setPreference("refreshInterval", parseInt(e.target.value))}
+								/>
 							</Box>
 						</Box>
 					</Box>
