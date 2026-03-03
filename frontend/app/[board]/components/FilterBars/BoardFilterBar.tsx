@@ -2,10 +2,12 @@
 import { Box, TextField, Select, MenuItem, Button } from "@mui/material";
 import StyledLink from "@/app/components/StyledLink";
 import { usePrefsContext } from "@/app/utils/UserPrefContext";
+import { usePostFormContext } from "@/app/utils/PostFormContext";
 import FilterBar from "./FilterBar";
 
 export default function BoardFilterBar() {
 	const { prefs, setPreference } = usePrefsContext();
+	const { open, board } = usePostFormContext();
 
 	return (
 		<FilterBar>
@@ -15,7 +17,7 @@ export default function BoardFilterBar() {
 				<TextField size='small' label='Search' />
 			</Box>
 			<Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-				<Button sx={{ minWidth: 135 }} variant='contained'>
+				<Button sx={{ minWidth: 135 }} variant='contained' onClick={() => open("newTopic", board)}>
 					Create Thread
 				</Button>
 				<Select

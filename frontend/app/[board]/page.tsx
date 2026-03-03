@@ -4,6 +4,7 @@ import TopicList from "./components/TopicList";
 import { Suspense } from "react";
 import TopicListSkeleton from "../components/skeletons/TopicListSkeleton";
 import BoardFilterBar from "./components/FilterBars/BoardFilterBar";
+import PostFormDrawer from "../components/posts/PostsFormDrawer";
 
 type Params = Promise<{ board: string }>;
 
@@ -20,6 +21,7 @@ export default async function BoardPage({ params }: { params: Params }) {
 					<Typography variant='body1'>{currentBoard.description}</Typography>
 				</Box>
 				<BoardFilterBar />
+				<PostFormDrawer />
 				<Suspense fallback={<TopicListSkeleton />}>
 					<TopicList board={currentBoard.name} />
 				</Suspense>
