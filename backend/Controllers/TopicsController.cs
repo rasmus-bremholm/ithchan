@@ -17,6 +17,8 @@ public class TopicsController : ControllerBase
 
    private const long MaxFileSizeBytes = 3 * 1024 * 1024;
 
+   private const int MaxTopicsPerBoard = 200;
+
    public TopicsController(ApplicationDbContext context, FileUploadService fileUploadService)
    {
       _context = context;
@@ -97,6 +99,22 @@ public async Task<ActionResult<Topic>> CreateTopic(
       _context.Posts.Add(firstPost);
       topic.Posts = new List<Post>{firstPost};
       await _context.SaveChangesAsync();
+
+      //Prune Old Topics.
+      var topicCountOnBoard = await _context.Topics
+      .Where(t => t.BoardName == boardName)
+      .CountAsync();
+
+      if(topicCountOnBoard >= MaxTopicsPerBoard)
+      {
+         var oldestTopic = await _context.Topics.Where(t => t.BoardName == boardName).OrderBy(t => t.LastBumpedAt).FirstOrDefaultAsync();
+         if(oldestTopic != null)
+         {
+            _context.Topics.Remove(oldestTopic);
+            await _context.SaveChangesAsync();
+         }
+
+      }
 
     return Ok(topic);
 }
