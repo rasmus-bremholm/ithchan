@@ -1,5 +1,5 @@
 "use client";
-import { createTheme, responsiveFontSizes, ThemeOptions } from "@mui/material/styles";
+import { createTheme, responsiveFontSizes, ThemeOptions, alpha } from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
 	interface TypographyVariants {
@@ -40,9 +40,33 @@ const baseOptions: ThemeOptions = {
 				root: { padding: "8px 20px" },
 			},
 		},
+		MuiDivider: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					borderColor: alpha(theme.palette.text.primary, 0.1),
+					opacity: 1,
+					margin: theme.spacing(3, 0),
+				}),
+			},
+		},
 		MuiPaper: {
 			styleOverrides: {
-				root: { backgroundImage: "none" },
+				root: ({ theme }) => ({
+					backgroundImage: "none",
+					border: `1px solid ${theme.palette.divider}`,
+				}),
+			},
+		},
+		MuiOutlinedInput: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					"& .MuiOutlinedInput-notchedOutline": {
+						borderColor: theme.palette.divider,
+					},
+					"&:hover .MuiOutlinedInput-notchedOutline": {
+						borderColor: alpha(theme.palette.text.primary, 0.2),
+					},
+				}),
 			},
 		},
 		MuiLink: {
@@ -55,15 +79,6 @@ const baseOptions: ThemeOptions = {
 						color: theme.palette.primary.main,
 						textDecoration: "underline",
 					},
-				}),
-			},
-		},
-		MuiDivider: {
-			styleOverrides: {
-				root: ({ theme }) => ({
-					borderColor: theme.palette.text.secondary,
-					opacity: 0.3,
-					my: 3,
 				}),
 			},
 		},
@@ -105,7 +120,7 @@ const themeOptions: Record<ThemeVariant, ThemeOptions> = {
 				primary: "#800000", // Dark maroon for thread subjects
 				secondary: "#000000", // Standard black for post bodies
 			},
-			divider: "#d9bfb7", // Border color for posts
+			divider: alpha("#d9bfb7", 0.2), // Border color for posts
 		},
 	},
 
@@ -123,7 +138,7 @@ const themeOptions: Record<ThemeVariant, ThemeOptions> = {
 				primary: "#0f0c5d",
 				secondary: "#000000",
 			},
-			divider: "#b7c5d9",
+			divider: alpha("#b7c5d9", 0.2),
 		},
 	},
 
@@ -137,7 +152,7 @@ const themeOptions: Record<ThemeVariant, ThemeOptions> = {
 				primary: "#c5c8c6",
 				secondary: "#969896",
 			},
-			divider: "#282a2e",
+			divider: alpha("#c5c8c6", 0.12),
 		},
 	},
 
@@ -155,7 +170,7 @@ const themeOptions: Record<ThemeVariant, ThemeOptions> = {
 				primary: "#f8f8f2",
 				secondary: "#6272a4", // Muted bluish-grey for metadata
 			},
-			divider: "#6272a4",
+			divider: alpha("#bd93f9", 0.2),
 		},
 	},
 };
