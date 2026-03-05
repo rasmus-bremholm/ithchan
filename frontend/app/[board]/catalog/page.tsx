@@ -23,7 +23,7 @@ export default async function BoardPageCatalog({ params }: { params: Params }) {
 				<BoardFilterBar board={currentBoard.name} />
 				<PostFormDrawer />
 				<Suspense fallback={<TopicListSkeleton />}>
-					<TopicList board={currentBoard.name} />
+					<TopicList board={currentBoard.name} variant="catalog" />
 				</Suspense>
 			</Box>
 		</Container>

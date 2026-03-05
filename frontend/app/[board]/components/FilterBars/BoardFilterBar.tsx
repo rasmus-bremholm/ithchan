@@ -12,8 +12,8 @@ export default function BoardFilterBar({board} : {board: string}) {
 	return (
 		<FilterBar>
 			<Box sx={{ flex: 1, display: "flex", alignItems: "center", gap: 2 }}>
-				<StyledLink href='/'>Index</StyledLink>
-				<StyledLink href='/'>Catalog</StyledLink>
+				<StyledLink href={`/${board}`}>Index</StyledLink>
+				<StyledLink href={`/${board}/catalog`}>Catalog</StyledLink>
 				<TextField size='small' label='Search' />
 			</Box>
 			<Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>

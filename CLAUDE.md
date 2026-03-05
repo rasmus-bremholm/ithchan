@@ -24,13 +24,16 @@ The frontend calls the backend REST API via server actions in `frontend/app/acti
 
 **Frontend structure:**
 - `app/page.tsx` — Homepage listing all boards
-- `app/[board]/page.tsx` — Board page showing topics
+- `app/[board]/page.tsx` — Board page showing topics (list view)
+- `app/[board]/catalog/page.tsx` — Catalog view (responsive grid of CatalogCards)
 - `app/[board]/[topic]/page.tsx` — Individual topic with posts (stub)
-- `app/[board]/components/` — TopicList (server component), TopicCard, PostCard
+- `app/[board]/components/` — TopicList (server component, accepts `variant="list"|"catalog"`), TopicCard, PostCard
+- `app/[board]/components/FilterBars/` — BoardFilterBar and TopicFilterBar (Index/Catalog nav links, sort order, create buttons)
 - `app/actions/` — Server actions wrapping API fetch calls with revalidation
 - `app/types/` — TypeScript interfaces matching backend models
 - `app/utils/` — MUI theme system with 4 switchable variants (yotsuba, yotsuba_b, tomorrow, dracula) via React Context + localStorage
 - `app/components/StyledLink.tsx` — Combined Next.js Link + MUI Link component
+- `app/components/CatalogCard.tsx` — Card used in catalog grid (thumbnail, topic id, subject, reply count)
 
 **Key patterns:**
 - Server Components by default; `"use client"` only for theme system
@@ -71,3 +74,22 @@ Frontend requires `frontend/.env.local` with:
 - `NEXT_PUBLIC_BACKEND_URL` — Backend root URL for image paths (e.g., `http://localhost:5041`)
 
 Backend JWT config is in `backend/appsettings.json` under `Jwt:Key`, `Jwt:Issuer`, `Jwt:Audience`.
+
+## TODO / Roadmap
+
+### Backend
+- [ ] Add reply count to `/stats` endpoint (needed for catalog cards to show accurate counts)
+- [ ] Migrate SQLite → PostgreSQL
+- [ ] Background jobs for thread pruning (currently runs synchronously in `CreateTopic`)
+- [ ] Response caching for board pages and stats endpoint
+
+### Frontend
+- [ ] User preferences modal redesign
+- [ ] Banners on boards
+- [ ] Frontend support for Popular threads and Total posts
+- [ ] Search / filter box in BoardFilterBar
+- [ ] Replies display (reply count + links to replies on each post)
+- [ ] Post quoting — clicking post number pastes `>>postId` into reply field
+- [ ] Hide / Report thread
+- [ ] Admin actions — lock, pin, delete
+- [ ] Admin dashboard view

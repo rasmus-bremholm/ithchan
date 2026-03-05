@@ -9,6 +9,7 @@
 
 ### UI / Polish
 
+- [ ] UI Revamp (see images)
 - [ ] User preferences modal redesign — current layout looks rough
 - [ ] Banners on boards
 - [ ] Catalog view (grid of thumbnails, no post previews)
