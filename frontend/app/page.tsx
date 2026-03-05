@@ -1,13 +1,12 @@
-import { Container, Typography, Box, Link as MuiLink } from "@mui/material";
+import { Container, Typography, Box, Link as MuiLink, Grid } from "@mui/material";
 import getAllBoards from "./actions/getAllBoards";
-import getTopicsOnBoard from "./actions/getTopicsOnBoard";
-import Link from "next/link";
 import StyledLink from "./components/StyledLink";
+import { getStats } from "./actions/getStats";
+import CatalogCard from "./components/CatalogCard";
 
 export default async function Home() {
 	const boards = await getAllBoards();
-	const topics = await getTopicsOnBoard("v");
-	console.log(topics);
+	const stats = await getStats();
 
 	return (
 		<Container>
@@ -37,6 +36,17 @@ export default async function Home() {
 					<Typography sx={{ px: 2, py: 1 }} variant='h4'>
 						Popular Threads
 					</Typography>
+					<Box sx={{ display: "flex", p: 2, gap: 2 }}>
+						{stats.popularTopics.map((topic) => (
+							<CatalogCard
+								key={topic.id}
+								subject={topic.subject}
+								boardName={topic.boardName}
+								topicId={topic.id}
+								thumbNailPath={topic.posts[0].imageData?.thumbNailPath || undefined}
+							/>
+						))}
+					</Box>
 				</Box>
 				<Box>
 					<Box sx={{ bgcolor: "background.paper" }}>
@@ -45,9 +55,11 @@ export default async function Home() {
 						</Typography>
 					</Box>
 					<Box sx={{ display: "flex", gap: 2, px: 2 }}>
-						<Typography>Total Posts: </Typography>
+						<Typography>Total Posts: {stats.totalPosts}</Typography>
+						{/*
 						<Typography>Current Users: </Typography>
 						<Typography>Active Content: </Typography>
+						*/}
 					</Box>
 				</Box>
 			</Box>
