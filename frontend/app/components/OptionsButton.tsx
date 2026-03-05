@@ -17,6 +17,7 @@ export default function OptionsButton() {
 				<SettingsIcon sx={{ color: "text.secondary", fontSize: 20 }} />
 			</IconButton>
 			<Modal
+				aria-labelledby="modal-title"
 				open={open}
 				onClose={handleClose}
 				slotProps={{
@@ -45,7 +46,7 @@ export default function OptionsButton() {
 					}}>
 					{/* MODAL CONTAINER */}
 					<Box>
-						<Typography variant='h6'>User Preferences</Typography>
+						<Typography variant='h6' id="modal-title">User Preferences</Typography>
 						{/* FLEX CONTAINER */}
 						<Box
 							sx={{
