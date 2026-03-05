@@ -2,7 +2,7 @@
 
 ## In Progress
 
-- [ ] New Thread form
+- [x] New Thread form
 
 ## Backlog
 

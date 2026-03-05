@@ -20,7 +20,7 @@ export default async function BoardPage({ params }: { params: Params }) {
 					<Typography variant='h4'>{currentBoard.title}</Typography>
 					<Typography variant='body1'>{currentBoard.description}</Typography>
 				</Box>
-				<BoardFilterBar />
+				<BoardFilterBar board={currentBoard.name} />
 				<PostFormDrawer />
 				<Suspense fallback={<TopicListSkeleton />}>
 					<TopicList board={currentBoard.name} />

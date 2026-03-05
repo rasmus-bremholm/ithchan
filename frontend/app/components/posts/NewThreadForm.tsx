@@ -4,8 +4,9 @@ import { useRef, useState } from "react";
 import { usePostFormContext } from "@/app/utils/PostFormContext";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import Image from "next/image";
-import { postReply } from "@/app/actions/postReply";
+import { createTopic } from "@/app/actions/createTopic";
 import { useRouter } from "next/navigation";
+import { useNewThreadValidation } from "@/app/hooks/useThreadValidation";
 
 export default function NewThreadForm() {
 	const { close, board } = usePostFormContext();
@@ -15,6 +16,7 @@ export default function NewThreadForm() {
 	const [image, setImage] = useState<File | null>(null);
 	const [imagePreview, setImagePreview] = useState<string | null>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
+	const { errors, isValid, onBlur } = useNewThreadValidation({ subject, content });
 
 	const router = useRouter();
 
@@ -31,9 +33,11 @@ export default function NewThreadForm() {
 		formData.append("name", name || "Anonymous");
 		formData.append("subject", subject);
 		formData.append("content", content);
+		formData.append("isLocked", "false");
+		formData.append("isPinned", "false");
 		if (image) formData.append("image", image);
 
-		await postReply(board, formData);
+		await createTopic(board, formData);
 		close();
 		router.refresh();
 	};
@@ -41,14 +45,32 @@ export default function NewThreadForm() {
 	return (
 		<Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
 			<TextField label='Name' placeholder='Anonymous' size='small' value={name} onChange={(e) => setName(e.target.value)} />
-			<TextField label='Subject' placeholder='Subject' size='small' value={subject} onChange={(e) => setSubject(e.target.value)} />
-			<TextField label='Content' multiline rows={6} value={content} onChange={(e) => setContent(e.target.value)} />
+			<TextField
+				label='Subject'
+				placeholder='Subject'
+				size='small'
+				value={subject}
+				onChange={(e) => setSubject(e.target.value)}
+				onBlur={() => onBlur("subject")}
+				error={!!errors.subject}
+				helperText={errors.subject}
+			/>
+			<TextField
+				label='Content'
+				multiline
+				rows={6}
+				value={content}
+				onChange={(e) => setContent(e.target.value)}
+				onBlur={() => onBlur("content")}
+				error={!!errors.content}
+				helperText={errors.content}
+			/>
 			<Box id='controls' sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}>
 				<Button onClick={close} variant='outlined'>
 					Cancel
 				</Button>
-				<Button variant='contained' onClick={handleSubmit}>
-					Post Reply
+				<Button variant='contained' onClick={handleSubmit} disabled={!isValid}>
+					Create Thread
 				</Button>
 			</Box>
 			<input

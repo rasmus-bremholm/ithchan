@@ -5,9 +5,9 @@ import { usePrefsContext } from "@/app/utils/UserPrefContext";
 import { usePostFormContext } from "@/app/utils/PostFormContext";
 import FilterBar from "./FilterBar";
 
-export default function BoardFilterBar() {
+export default function BoardFilterBar({board} : {board: string}) {
 	const { prefs, setPreference } = usePrefsContext();
-	const { open, board } = usePostFormContext();
+	const { open } = usePostFormContext();
 
 	return (
 		<FilterBar>
