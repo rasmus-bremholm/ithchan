@@ -3,6 +3,7 @@
 ## In Progress
 
 - [x] New Thread form
+- [x] Stats Frontend
 
 ## Backlog
 
