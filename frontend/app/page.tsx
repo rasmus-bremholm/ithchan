@@ -1,3 +1,4 @@
+"use server";
 import { Container, Typography, Box, Link as MuiLink, Grid } from "@mui/material";
 import getAllBoards from "./actions/getAllBoards";
 import StyledLink from "./components/StyledLink";
@@ -36,7 +37,7 @@ export default async function Home() {
 					<Typography sx={{ px: 2, py: 1 }} variant='h4'>
 						Popular Threads
 					</Typography>
-					<Box sx={{ display: "flex",py: 2, gap: 2, bgcolor: "background.default" }}>
+					<Box sx={{ display: "flex", py: 2, gap: 2, bgcolor: "background.default" }}>
 						{stats.popularTopics.map((topic) => (
 							<CatalogCard
 								key={topic.id}

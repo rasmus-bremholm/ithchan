@@ -1,3 +1,4 @@
+"use client";
 import { Typography, Box, Card, CardContent, Divider, alpha } from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";

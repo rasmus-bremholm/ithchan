@@ -15,15 +15,23 @@ export default async function BoardPageCatalog({ params }: { params: Params }) {
 	return (
 		<Container>
 			<Box sx={{ mt: 6 }}>
-				<Box>
-					<Typography variant='h1'>/{currentBoard.name}/</Typography>
-					<Typography variant='h4'>{currentBoard.title}</Typography>
-					<Typography variant='body1'>{currentBoard.description}</Typography>
+				<Box sx={{ display: "flex", border: "1px solid", borderColor: "divider", borderRadius: 1, py: 3, px: 4, gap: 2 }}>
+					<Box sx={{ display: "flex", alignItems: "center" }}>
+						<Typography variant='h1' component='span'>
+							/{currentBoard.name}/
+						</Typography>
+					</Box>
+					<Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "center" }}>
+						<Typography variant='h2' component='h1' sx={{ fontWeight: 700 }}>
+							{currentBoard.title}
+						</Typography>
+						<Typography variant='body1'>{currentBoard.description}</Typography>
+					</Box>
 				</Box>
 				<BoardFilterBar board={currentBoard.name} />
 				<PostFormDrawer />
 				<Suspense fallback={<TopicListSkeleton />}>
-					<TopicList board={currentBoard.name} variant="catalog" />
+					<TopicList board={currentBoard.name} variant='catalog' />
 				</Suspense>
 			</Box>
 		</Container>
