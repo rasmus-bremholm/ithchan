@@ -17,6 +17,8 @@ export default function PostCard({ post, backendUrl }: PostCardProps) {
 				gap: 2,
 				p: 2,
 				bgcolor: "background.paper",
+				border: "1px solid",
+				borderColor: "divider",
 				borderRadius: 1,
 			}}>
 			{post.imageData && (
@@ -34,7 +36,7 @@ export default function PostCard({ post, backendUrl }: PostCardProps) {
 				</Box>
 			)}
 
-			<Box sx={{mx: 1}}>
+			<Box sx={{ mx: 1 }}>
 				<Typography variant='body2' sx={{ color: "text.secondary", mb: 0.5 }}>
 					{post.name} No.{post.id}
 				</Typography>

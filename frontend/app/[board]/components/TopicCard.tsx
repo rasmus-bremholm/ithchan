@@ -21,9 +21,19 @@ export default function TopicCard({ topic }: TopicCardProps) {
 
 	return (
 		<>
-			<Box sx={{ p: 3, my: 3, border: "1px solid", borderColor: "divider", borderRadius: 1 }}>
+			<Box sx={{ p: 3, my: 3 }}>
 				{/* OP */}
-				<Box sx={{ display: "flex", gap: 3, position: "relative" }}>
+				<Box
+					sx={{
+						display: "flex",
+						gap: 3,
+						position: "relative",
+						border: "1px solid",
+						borderColor: "divider",
+						borderRadius: 1,
+						p: 2,
+						bgcolor: "background.paper",
+					}}>
 					{firstPost?.imageData && (
 						<Box sx={{ flexShrink: 0 }}>
 							<HoverImage
@@ -75,10 +85,35 @@ export default function TopicCard({ topic }: TopicCardProps) {
 
 				{/* Reply previews */}
 				{previewReplies.length > 0 && (
-					<Box sx={{ mt: 2, ml: 3, display: "flex", flexDirection: "column", gap: 1 }}>
-						{previewReplies.map((post) => (
-							<PostCard key={post.id} post={post} backendUrl={backendUrl} />
-						))}
+					<Box sx={{ mt: 1, mx: 3 }}>
+						{previewReplies.map((post, index) => {
+							const isLast = index === previewReplies.length - 1;
+							return (
+								<Box
+									key={post.id}
+									sx={{
+										position: "relative",
+										pl: 3,
+										pb: isLast ? 0 : 2,
+										borderLeft: isLast ? "none" : "1px solid",
+										borderColor: "divider",
+										"&::before": {
+											content: '""',
+											position: "absolute",
+											left: 0,
+											top: isLast ? 0 : 30,
+											width: 20,
+											borderBottom: "1px solid",
+											borderLeft: isLast ? "1px solid" : "none",
+											borderColor: "divider",
+											height: isLast ? 30 : 0,
+											borderBottomLeftRadius: isLast ? 8 : 0,
+										},
+									}}>
+									<PostCard post={post} backendUrl={backendUrl} />
+								</Box>
+							);
+						})}
 					</Box>
 				)}
 			</Box>
