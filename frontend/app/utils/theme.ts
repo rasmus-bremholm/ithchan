@@ -37,7 +37,11 @@ const baseOptions: ThemeOptions = {
 		MuiButton: {
 			defaultProps: { disableElevation: true },
 			styleOverrides: {
-				root: { padding: "8px 20px" },
+				root: { padding: "6px 16px" },
+				outlined: ({ theme }) => ({
+					borderColor: theme.palette.text.secondary,
+					color: theme.palette.text.primary,
+				}),
 			},
 		},
 		MuiDivider: {

@@ -4,16 +4,18 @@ import StyledLink from "@/app/components/StyledLink";
 import { usePrefsContext } from "@/app/utils/UserPrefContext";
 import { usePostFormContext } from "@/app/utils/PostFormContext";
 import FilterBar from "./FilterBar";
+import Link from "next/link";
+import { List, GridView } from "@mui/icons-material";
 
-export default function BoardFilterBar({board} : {board: string}) {
+export default function BoardFilterBar({ board }: { board: string }) {
 	const { prefs, setPreference } = usePrefsContext();
 	const { open } = usePostFormContext();
 
 	return (
 		<FilterBar>
-			<Box sx={{ flex: 1, display: "flex", alignItems: "center", gap: 2 }}>
-				<StyledLink href={`/${board}`}>Index</StyledLink>
-				<StyledLink href={`/${board}/catalog`}>Catalog</StyledLink>
+			<Box sx={{ flex: 1, display: "flex", alignItems: "center", gap: 1 }}>
+				<Button variant="outlined" LinkComponent={Link} href={`/${board}`} startIcon={<List/>} size="small">Index</Button>
+				<Button variant="outlined" LinkComponent={Link} href={`/${board}/catalog`} startIcon={<GridView/>} size="small">Catalog</Button>
 				<TextField size='small' label='Search' />
 			</Box>
 			<Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
