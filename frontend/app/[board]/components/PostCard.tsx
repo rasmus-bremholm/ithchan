@@ -20,6 +20,7 @@ export default function PostCard({ post, backendUrl }: PostCardProps) {
 				border: "1px solid",
 				borderColor: "divider",
 				borderRadius: 1,
+				boxShadow: 2
 			}}>
 			{post.imageData && (
 				<Box sx={{ flexShrink: 0 }}>

@@ -33,6 +33,8 @@ export default function TopicCard({ topic }: TopicCardProps) {
 						borderRadius: 1,
 						p: 2,
 						bgcolor: "background.paper",
+						boxShadow: 3,
+						mb: 2
 					}}>
 					{firstPost?.imageData && (
 						<Box sx={{ flexShrink: 0 }}>
