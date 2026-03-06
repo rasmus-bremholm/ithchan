@@ -2,7 +2,7 @@
 
 ## In Progress
 
-- [ ] Add reply count to /stats. For catalog cards to render.
+- [x] Add reply count to /stats. For catalog cards to render.
 
 - [ ] Change SQlite to PostgreSQL
       Swap out SQLite for PostgreSQL. EF Core abstracts most of the difference so minimal code changes are needed - mainly swapping the provider package and updating the connection string. Gives a solid foundation for everything else on this list.
