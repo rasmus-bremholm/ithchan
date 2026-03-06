@@ -1,6 +1,6 @@
 "use client";
 import { IconButton, Modal, Box, Typography, Divider, Switch, FormGroup, FormControlLabel, Slider, Select, MenuItem, TextField } from "@mui/material";
-import SettingsIcon from "@mui/icons-material/Settings";
+import { SettingsOutlined } from "@mui/icons-material";
 import { Close, ImageOutlined, ForumOutlined, ChevronRight } from "@mui/icons-material";
 import { usePrefsContext } from "../utils/UserPrefContext";
 import { useState } from "react";
@@ -14,10 +14,10 @@ export default function OptionsButton() {
 	return (
 		<>
 			<IconButton onClick={handleOpen}>
-				<SettingsIcon sx={{ color: "text.secondary", fontSize: 20 }} />
+				<SettingsOutlined sx={{ color: "text.secondary", fontSize: 20 }} />
 			</IconButton>
 			<Modal
-				aria-labelledby="modal-title"
+				aria-labelledby='modal-title'
 				open={open}
 				onClose={handleClose}
 				slotProps={{
@@ -46,7 +46,9 @@ export default function OptionsButton() {
 					}}>
 					{/* MODAL CONTAINER */}
 					<Box>
-						<Typography variant='h6' id="modal-title">User Preferences</Typography>
+						<Typography variant='h6' id='modal-title'>
+							User Preferences
+						</Typography>
 						{/* FLEX CONTAINER */}
 						<Box
 							sx={{
@@ -70,7 +72,7 @@ export default function OptionsButton() {
 								<Switch checked={prefs.hoverExpandImages} onChange={(e) => setPreference("hoverExpandImages", e.target.checked)} />
 							</Box>
 
-							<Box sx={{px: 1}}>
+							<Box sx={{ px: 1 }}>
 								<Typography>Hover image scale:</Typography>
 								<Slider
 									min={0.3}

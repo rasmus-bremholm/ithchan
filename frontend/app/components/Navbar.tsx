@@ -8,7 +8,7 @@ export default async function Navbar() {
 
 	return (
 		<Container component='nav' sx={{ display: "flex", py: 1 }}>
-			<Stack direction='row' sx={{ gap: 1 }}>
+			<Stack direction='row' sx={{ gap: 1, fontWeight: 700 }}>
 				[<StyledLink href={"/"}>Index</StyledLink>
 				<StyledLink href={"/"}>Archive</StyledLink>]
 			</Stack>
