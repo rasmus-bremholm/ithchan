@@ -18,6 +18,7 @@
 
 - [x] Frontend support for Popular threads and Total posts
 - [ ] Search / filter box in BoardFilterBar
+- [ ] Search / filter box in TopicFilterBar
 - [ ] Replies display (show reply count + links to replies on each post)
 - [ ] Post quoting — clicking a post number while drawer is open pastes `>>postId` into the content field
 - [ ] Hide / Report thread
