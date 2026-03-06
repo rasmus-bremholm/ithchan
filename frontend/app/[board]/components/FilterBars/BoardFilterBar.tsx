@@ -5,7 +5,7 @@ import { usePrefsContext } from "@/app/utils/UserPrefContext";
 import { usePostFormContext } from "@/app/utils/PostFormContext";
 import FilterBar from "./FilterBar";
 import Link from "next/link";
-import { List, GridView, SearchOutlined } from "@mui/icons-material";
+import { List, GridView, SearchOutlined, AddBox } from "@mui/icons-material";
 
 export default function BoardFilterBar({ board }: { board: string }) {
 	const { prefs, setPreference } = usePrefsContext();
@@ -36,7 +36,7 @@ export default function BoardFilterBar({ board }: { board: string }) {
 				/>
 			</Box>
 			<Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-				<Button sx={{ minWidth: 135 }} variant='contained' onClick={() => open("newTopic", board)}>
+				<Button startIcon={<AddBox />} sx={{ minWidth: 135 }} variant='contained' onClick={() => open("newTopic", board)}>
 					Create Thread
 				</Button>
 				<Select

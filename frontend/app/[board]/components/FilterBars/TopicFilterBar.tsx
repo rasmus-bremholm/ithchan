@@ -1,6 +1,6 @@
 "use client";
 import { Box, Button, Typography, TextField, InputAdornment } from "@mui/material";
-import { List, GridView, SearchOutlined } from "@mui/icons-material";
+import { List, GridView, SearchOutlined, Reply } from "@mui/icons-material";
 import FilterBar from "./FilterBar";
 import StyledLink from "@/app/components/StyledLink";
 import Link from "next/link";
@@ -41,7 +41,7 @@ export default function TopicFilterBar({ board, topicId }: { board: string; topi
 				<Typography>{countdown}</Typography>
 			</Box>
 			<Box>
-				<Button variant='contained' onClick={() => open("reply", board, topicId)}>
+				<Button startIcon={<Reply/>} variant='contained' onClick={() => open("reply", board, topicId)}>
 					Create Reply
 				</Button>
 			</Box>
