@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import TopicListSkeleton from "../components/skeletons/TopicListSkeleton";
 import BoardFilterBar from "./components/FilterBars/BoardFilterBar";
 import PostFormDrawer from "../components/posts/PostsFormDrawer";
+import Banner from "../components/Banners";
 
 type Params = Promise<{ board: string }>;
 
@@ -22,11 +23,12 @@ export default async function BoardPage({ params }: { params: Params }) {
 						</Typography>
 					</Box>
 					<Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "center" }}>
-						<Typography variant='h2' component='h1' sx={{fontWeight: 700}}>
+						<Typography variant='h2' component='h1' sx={{ fontWeight: 700 }}>
 							{currentBoard.title}
 						</Typography>
 						<Typography variant='body1'>{currentBoard.description}</Typography>
 					</Box>
+					<Banner board={currentBoard.name} />
 				</Box>
 				<BoardFilterBar board={currentBoard.name} />
 				<PostFormDrawer />

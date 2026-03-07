@@ -16,8 +16,8 @@ export default function Banner({ board }: { board: string }) {
 	const randomBanner = banners[Math.floor(Math.random() * banners.length)];
 
 	return (
-		<Box sx={{ display: "flex", justifyContent: "center", my: 1 }}>
-			<Image src={`/banners/${board}/${randomBanner}`} alt='board banner' width={468} height={60} />
+		<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 1, margin: "auto", borderRadius: 0.5, overflow: "hidden" }}>
+			<Image src={`/banners/${board}/${randomBanner}`} alt='board banner' width={300} height={100} />
 		</Box>
 	);
 }
