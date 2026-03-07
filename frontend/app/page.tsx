@@ -27,7 +27,7 @@ export default async function Home() {
 							boards.map((board) => (
 								<StyledLink key={board.name} href={`/${board.name}/`} color='primary'>
 									<Typography>
-										{board.name} - {board.title}
+										/{board.name}/ - {board.title}
 									</Typography>
 								</StyledLink>
 							))}
