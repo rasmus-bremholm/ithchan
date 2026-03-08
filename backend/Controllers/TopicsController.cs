@@ -5,6 +5,7 @@ using backend.Models;
 using System.ComponentModel.DataAnnotations;
 using backend.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Channels;
 
 namespace backend.Controllers;
 
@@ -13,16 +14,19 @@ namespace backend.Controllers;
 public class TopicsController : ControllerBase
 {
    private readonly ApplicationDbContext _context;
+
+   private readonly Channel<string> _pruningChannel;
    private readonly FileUploadService _fileUploadService;
 
    private const long MaxFileSizeBytes = 3 * 1024 * 1024;
 
    private const int MaxTopicsPerBoard = 200;
 
-   public TopicsController(ApplicationDbContext context, FileUploadService fileUploadService)
+   public TopicsController(ApplicationDbContext context, FileUploadService fileUploadService, Channel<string> pruningChannel)
    {
       _context = context;
       _fileUploadService = fileUploadService;
+      _pruningChannel = pruningChannel;
    }
 
    // GET all topics on a board
@@ -104,6 +108,7 @@ public async Task<ActionResult<Topic>> CreateTopic(
      // Now to replace it....but how?
      // I still need to do this AFTER the SaveChangesAsync atleast...so we are in the right place here.
 
+      await _pruningChannel.Writer.WriteAsync(boardName);
     return Ok(topic);
 }
 
