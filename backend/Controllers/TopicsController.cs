@@ -100,21 +100,9 @@ public async Task<ActionResult<Topic>> CreateTopic(
       topic.Posts = new List<Post>{firstPost};
       await _context.SaveChangesAsync();
 
-      //Prune Old Topics.
-      var topicCountOnBoard = await _context.Topics
-      .Where(t => t.BoardName == boardName)
-      .CountAsync();
-
-      if(topicCountOnBoard >= MaxTopicsPerBoard)
-      {
-         var oldestTopic = await _context.Topics.Where(t => t.BoardName == boardName).OrderBy(t => t.LastBumpedAt).FirstOrDefaultAsync();
-         if(oldestTopic != null)
-         {
-            _context.Topics.Remove(oldestTopic);
-            await _context.SaveChangesAsync();
-         }
-
-      }
+     //Removed all pruning logic here.
+     // Now to replace it....but how?
+     // I still need to do this AFTER the SaveChangesAsync atleast...so we are in the right place here.
 
     return Ok(topic);
 }

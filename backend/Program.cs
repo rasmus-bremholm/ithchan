@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<FileUploadService>();
 builder.Services.AddSingleton(Channel.CreateUnbounded<string>());
+builder.Services.AddHostedService<PruningService>();
 //JWT stuff
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
