@@ -22,7 +22,7 @@
 - [x] Search / filter box in BoardFilterBar
 - [x] Search / filter box in TopicFilterBar
 - [x] Replies display (show reply count + links to replies on each post)
-- [ ] Post quoting — clicking a post number while drawer is open pastes `>>postId` into the content field
+- [x] Post quoting — clicking a post number while drawer is open pastes `>>postId` into the content field
 - [ ] Hide / Report thread
 
 ### Admin

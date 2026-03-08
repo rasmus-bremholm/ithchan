@@ -1,6 +1,4 @@
 import { Box, Typography, IconButton, Divider } from "@mui/material";
-import Image from "next/image";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PushPinIcon from "@mui/icons-material/PushPin";
 import LockIcon from "@mui/icons-material/Lock";
 import StyledLink from "@/app/components/StyledLink";
@@ -67,7 +65,7 @@ export default function TopicCard({ topic }: TopicCardProps) {
 
 						<Typography variant='body2' sx={{ color: "text.secondary", mb: 1 }}>
 							{firstPost?.name || "Anonymous"} - {new Date(topic.createdAt).toLocaleString()} -{" "}
-							<PostNumber topicId={topic.id} board={topic.boardName} postId={topic.id} />
+							<PostNumber topicId={topic.id} board={topic.boardName} postId={firstPost.id} />
 						</Typography>
 
 						<Box sx={{ mb: 2, flex: 1 }}>{formatPostContent(firstPost?.content)}</Box>
@@ -114,7 +112,7 @@ export default function TopicCard({ topic }: TopicCardProps) {
 											borderBottomLeftRadius: isLast ? 8 : 0,
 										},
 									}}>
-									<PostCard post={post} backendUrl={backendUrl} />
+									<PostCard post={post} backendUrl={backendUrl} board={topic.boardName} topicId={topic.id} />
 								</Box>
 							);
 						})}

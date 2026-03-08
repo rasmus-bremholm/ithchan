@@ -48,7 +48,7 @@ export default async function TopicPage({ params }: { params: Params }) {
 								</Box>
 								<Typography variant='body2' sx={{ color: "text.secondary", mb: 1 }}>
 									{topicData.posts[0].name} - {new Date(topicData.createdAt).toLocaleString()} -{" "}
-									<PostNumber topicId={topicData.id} board={board} postId={topicData.id} />
+									<PostNumber topicId={topicData.id} board={board} postId={topicData.posts[0].id} />
 								</Typography>
 
 								<Box sx={{ mb: 2, flex: 1 }}>{formatPostContent(topicData.posts[0].content)}</Box>
