@@ -31,13 +31,7 @@ public class PruningService : BackgroundService
          var fileUploadService = scope.ServiceProvider.GetRequiredService<FileUploadService>();
          var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-
-         // Ok fuck...lets do this
-         // Ill probably follow the old logic way to much...
-
          var topicCountOnBoard = await context.Topics
-         // Cant do this used to get boardName from RouteParams
-         //Wait....I DO HAVE BOARDNAME!!
          .Where(t => t.BoardName == boardName)
          .CountAsync();
 
@@ -45,12 +39,20 @@ public class PruningService : BackgroundService
          {
             var oldestTopic = await context.Topics
             .Where(t => t.BoardName == boardName)
+               .Include(t => t.Posts)
+                  .ThenInclude(p => p.ImageData)
             .OrderBy(t => t.LastBumpedAt)
             .FirstOrDefaultAsync();
 
             if(oldestTopic != null)
             {
-               
+               foreach(var post in oldestTopic.Posts)
+               {
+                 if(post.ImageData != null)
+                  {
+                     await fileUploadService.DeleteImageAsync(post.ImageData);
+                  }
+               }
                context.Topics.Remove(oldestTopic);
                await context.SaveChangesAsync();
             }
