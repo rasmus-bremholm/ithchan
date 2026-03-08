@@ -9,6 +9,7 @@ import PostCard from "./PostCard";
 import TopicMenu from "./TopicMenu";
 import type { Topic } from "@/app/types/topics";
 import { formatPostContent } from "@/app/utils/textFormatter";
+import PostNumber from "@/app/components/posts/PostNumber";
 
 interface TopicCardProps {
 	topic: Topic;
@@ -34,7 +35,7 @@ export default function TopicCard({ topic }: TopicCardProps) {
 						p: 2,
 						bgcolor: "background.paper",
 						boxShadow: 3,
-						mb: 2
+						mb: 2,
 					}}>
 					{firstPost?.imageData && (
 						<Box sx={{ flexShrink: 0 }}>
@@ -65,7 +66,8 @@ export default function TopicCard({ topic }: TopicCardProps) {
 						</Box>
 
 						<Typography variant='body2' sx={{ color: "text.secondary", mb: 1 }}>
-							{firstPost?.name || "Anonymous"} - {new Date(topic.createdAt).toLocaleString()} - No.{firstPost.id}
+							{firstPost?.name || "Anonymous"} - {new Date(topic.createdAt).toLocaleString()} -{" "}
+							<PostNumber topicId={topic.id} board={topic.boardName} postId={topic.id} />
 						</Typography>
 
 						<Box sx={{ mb: 2, flex: 1 }}>{formatPostContent(firstPost?.content)}</Box>

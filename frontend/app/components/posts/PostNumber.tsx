@@ -20,9 +20,20 @@ export default function PostNumber({ postId, board, topicId }: PostNumberProps) 
 	};
 
 	return (
-		<Box sx={{ display: "inline-flex", gap: 1, cursor: "pointer" }} onClick={handleTheFuckingClick}>
+		<Box
+			component='span'
+			sx={{
+				display: "inline-flex",
+				gap: 0.5,
+				cursor: "pointer",
+				color: "text.secondary",
+				"&:hover": {
+					color: "primary.main",
+				},
+			}}
+			onClick={handleTheFuckingClick}>
 			<Typography component='span'>No. </Typography>
-			<Typography component='span' sx={{ color: "primary.main" }}>
+			<Typography component='span' sx={{}}>
 				{postId}
 			</Typography>
 		</Box>
