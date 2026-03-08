@@ -5,12 +5,14 @@ type PostFormMode = "reply" | "newTopic";
 
 type PostFormContextType = {
 	isOpen: boolean;
+	content: string;
 	mode: PostFormMode;
 	board: string | null;
 	topicId: number | null;
 	quotedPostId: number | null;
 	open: (mode: PostFormMode, board: string, topicId?: number, quotedPostId?: number) => void;
 	close: () => void;
+	setContent: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const PostFormContext = createContext<PostFormContextType | undefined>(undefined);
@@ -21,12 +23,14 @@ export function PostFormContextProvider({ children }: { children: React.ReactNod
 	const [board, setBoard] = useState<string | null>(null);
 	const [topicId, setTopicId] = useState<number | null>(null);
 	const [quotedPostId, setQuotedPostId] = useState<number | null>(null);
+	const [content, setContent] = useState("");
 
 	const open = (mode: PostFormMode, board: string, topicId?: number, quotedPostId?: number) => {
 		setMode(mode);
 		setBoard(board);
 		setTopicId(topicId ?? null);
 		setQuotedPostId(quotedPostId ?? null);
+		if (quotedPostId) setContent((prev) => prev + `>>${quotedPostId}\n`);
 		setIsOpen(true);
 	};
 
@@ -35,9 +39,12 @@ export function PostFormContextProvider({ children }: { children: React.ReactNod
 		setQuotedPostId(null);
 		setTopicId(null);
 		setBoard(null);
+		setContent("");
 	};
 
-	return <PostFormContext.Provider value={{ isOpen, mode, board, topicId, quotedPostId, open, close }}>{children}</PostFormContext.Provider>;
+	return (
+		<PostFormContext.Provider value={{ content, isOpen, mode, board, topicId, quotedPostId, open, close, setContent }}>{children}</PostFormContext.Provider>
+	);
 }
 
 export const usePostFormContext = () => {

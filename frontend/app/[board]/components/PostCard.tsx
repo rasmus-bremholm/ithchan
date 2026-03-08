@@ -3,13 +3,16 @@ import Image from "next/image";
 import HoverImage from "@/app/components/HoverImage";
 import type { Post } from "@/app/types/posts";
 import { formatPostContent } from "@/app/utils/textFormatter";
+import PostNumber from "@/app/components/posts/PostNumber";
 
 interface PostCardProps {
 	post: Post;
 	backendUrl: string | undefined;
+	board: string;
+	topicId: number;
 }
 
-export default function PostCard({ post, backendUrl }: PostCardProps) {
+export default function PostCard({ post, backendUrl, board, topicId }: PostCardProps) {
 	return (
 		<Box
 			sx={{
@@ -20,7 +23,7 @@ export default function PostCard({ post, backendUrl }: PostCardProps) {
 				border: "1px solid",
 				borderColor: "divider",
 				borderRadius: 1,
-				boxShadow: 2
+				boxShadow: 2,
 			}}>
 			{post.imageData && (
 				<Box sx={{ flexShrink: 0 }}>
@@ -39,7 +42,7 @@ export default function PostCard({ post, backendUrl }: PostCardProps) {
 
 			<Box sx={{ mx: 1 }}>
 				<Typography variant='body2' sx={{ color: "text.secondary", mb: 0.5 }}>
-					{post.name} No.{post.id}
+					{post.name} <PostNumber postId={post.id} board={board} topicId={topicId} />
 				</Typography>
 				<Box sx={{ mt: 1 }}>{formatPostContent(post.content)}</Box>
 			</Box>

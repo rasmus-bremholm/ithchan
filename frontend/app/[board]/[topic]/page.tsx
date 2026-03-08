@@ -7,6 +7,7 @@ import { formatPostContent } from "@/app/utils/textFormatter";
 import PostCard from "../components/PostCard";
 import Image from "next/image";
 import PostFormDrawer from "@/app/components/posts/PostsFormDrawer";
+import PostNumber from "@/app/components/posts/PostNumber";
 
 type Params = Promise<{ board: string; topic: string }>;
 
@@ -46,7 +47,8 @@ export default async function TopicPage({ params }: { params: Params }) {
 									</IconButton>
 								</Box>
 								<Typography variant='body2' sx={{ color: "text.secondary", mb: 1 }}>
-									{topicData.posts[0].name} - {new Date(topicData.createdAt).toLocaleString()} - No.{topicData.id}
+									{topicData.posts[0].name} - {new Date(topicData.createdAt).toLocaleString()} -{" "}
+									<PostNumber topicId={topicData.id} board={board} postId={topicData.id} />
 								</Typography>
 
 								<Box sx={{ mb: 2, flex: 1 }}>{formatPostContent(topicData.posts[0].content)}</Box>
@@ -55,7 +57,7 @@ export default async function TopicPage({ params }: { params: Params }) {
 						</Box>
 						<Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 1 }}>
 							{replies.map((post) => (
-								<PostCard key={post.id} post={post} backendUrl={backendUrl} />
+								<PostCard key={post.id} post={post} backendUrl={backendUrl} board={board} topicId={topicData.id} />
 							))}
 						</Box>
 					</Box>

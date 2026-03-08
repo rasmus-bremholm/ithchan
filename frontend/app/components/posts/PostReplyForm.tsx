@@ -8,9 +8,8 @@ import { postReply } from "@/app/actions/postReply";
 import { useRouter } from "next/navigation";
 
 export default function PostReplyForm() {
-	const { quotedPostId, close, board, topicId } = usePostFormContext();
+	const { quotedPostId, close, board, topicId, content, setContent } = usePostFormContext();
 	const [name, setName] = useState("");
-	const [content, setContent] = useState("");
 	const [image, setImage] = useState<File | null>(null);
 	const [imagePreview, setImagePreview] = useState<string | null>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
