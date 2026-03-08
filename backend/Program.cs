@@ -34,7 +34,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite("Data Source=Data/ithchan.db"));
+    options.UseNpgsql("Host=localhost;Database=ithchan;Username=postgres;Password=ntz061"));
 
 var app = builder.Build();
 
