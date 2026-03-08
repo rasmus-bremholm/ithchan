@@ -28,6 +28,7 @@ public class PruningService : BackgroundService
       {
          var boardName = await _channel.Reader.ReadAsync(stoppingToken);
          await using var scope = _scopeFactory.CreateAsyncScope();
+         var fileUploadService = scope.ServiceProvider.GetRequiredService<FileUploadService>();
          var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
 
@@ -49,6 +50,7 @@ public class PruningService : BackgroundService
 
             if(oldestTopic != null)
             {
+               
                context.Topics.Remove(oldestTopic);
                await context.SaveChangesAsync();
             }

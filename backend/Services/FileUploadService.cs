@@ -63,4 +63,25 @@ public class FileUploadService
          ImageFormat = Path.GetExtension(file.FileName).ToLower()
       };
    }
+
+   public async Task DeleteImageAsync(ImageData image)
+   {
+      var fileName = Path.GetFileName(image.ImagePath);
+      var thumbFileName = Path.GetFileName(image.ThumbNailPath);
+
+      var fullPath = Path.Combine(_uploadsPath, fileName);
+      var thumbNailFullPath = Path.Combine(_thumbnailsPath, thumbFileName);
+
+      if(File.Exists(fullPath))
+      {
+         File.Delete(fullPath);
+      }
+
+      if(File.Exists(thumbNailFullPath))
+      {
+         File.Delete(thumbNailFullPath);
+      }
+
+      return;
+   }
 }

@@ -20,8 +20,6 @@ public class TopicsController : ControllerBase
 
    private const long MaxFileSizeBytes = 3 * 1024 * 1024;
 
-   private const int MaxTopicsPerBoard = 200;
-
    public TopicsController(ApplicationDbContext context, FileUploadService fileUploadService, Channel<string> pruningChannel)
    {
       _context = context;
