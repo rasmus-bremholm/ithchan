@@ -11,8 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<FileUploadService>();
 builder.Services.AddSingleton(Channel.CreateUnbounded<string>());
 builder.Services.AddHostedService<PruningService>();
+builder.Services.AddMemoryCache();
 //JWT stuff
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<BoardCacheService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {

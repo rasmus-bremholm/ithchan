@@ -17,20 +17,28 @@ public class TopicsController : ControllerBase
 
    private readonly Channel<string> _pruningChannel;
    private readonly FileUploadService _fileUploadService;
+   private readonly BoardCacheService _boardCacheService;
 
    private const long MaxFileSizeBytes = 3 * 1024 * 1024;
 
-   public TopicsController(ApplicationDbContext context, FileUploadService fileUploadService, Channel<string> pruningChannel)
+   public TopicsController(ApplicationDbContext context, FileUploadService fileUploadService, Channel<string> pruningChannel, BoardCacheService boardCacheService)
    {
       _context = context;
       _fileUploadService = fileUploadService;
       _pruningChannel = pruningChannel;
+      _boardCacheService = boardCacheService;
    }
 
    // GET all topics on a board
    [HttpGet]
    public async Task<ActionResult<List<Topic>>> GetTopicsForBoard(string boardName)
    {
+      var cached = _boardCacheService.GetBoardCache(boardName);
+      if(cached != null)
+      {
+         return Ok(cached);
+      }
+
       var topics = await _context.Topics
       .Where(t => t.BoardName == boardName)
       .ToListAsync();
@@ -50,6 +58,7 @@ public class TopicsController : ControllerBase
          .ToList();
       }
 
+      _boardCacheService.SetBoardCache(boardName, topics);
       return Ok(topics);
    }
    // CREATE new topic
@@ -102,11 +111,8 @@ public async Task<ActionResult<Topic>> CreateTopic(
       topic.Posts = new List<Post>{firstPost};
       await _context.SaveChangesAsync();
 
-     //Removed all pruning logic here.
-     // Now to replace it....but how?
-     // I still need to do this AFTER the SaveChangesAsync atleast...so we are in the right place here.
-
       await _pruningChannel.Writer.WriteAsync(boardName);
+      _boardCacheService.InvalidateBoardCache(boardName);
     return Ok(topic);
 }
 
@@ -166,6 +172,7 @@ public async Task<ActionResult<Topic>> CreateTopic(
 
       _context.Posts.Add(post);
       await _context.SaveChangesAsync();
+      _boardCacheService.InvalidateBoardCache(boardName);
 
       return Ok(post);
    }
@@ -194,6 +201,7 @@ public async Task<ActionResult<Topic>> CreateTopic(
 
       post.IsDeleted = true;
       await _context.SaveChangesAsync();
+      _boardCacheService.InvalidateBoardCache(boardName);
 
       return Ok(new {message = "Post deleted"});
    }
@@ -213,6 +221,7 @@ public async Task<ActionResult<Topic>> CreateTopic(
 
       _context.Topics.Remove(topic);
       await _context.SaveChangesAsync();
+      _boardCacheService.InvalidateBoardCache(boardName);
 
       return Ok(new {message = "Topic Deleted"});
    }
