@@ -15,4 +15,5 @@ public class ApplicationDbContext : DbContext
    public DbSet<Post> Posts {get; set;}
    public DbSet<ImageData> Images {get; set;}
    public DbSet<User> Users {get; set;}
+   public DbSet<Report> Reports {get; set;}
 }
