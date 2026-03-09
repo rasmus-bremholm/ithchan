@@ -20,11 +20,28 @@ public class ReportsController: ControllerBase
       _context = context;
    }
 
-     [HttpPost]
-     public async Task<ActionResult<Report>> CreateReport([FromBody] CreateReportRequest request)
+    [HttpPost]
+   public async Task<ActionResult<Report>> CreateReport([FromBody] CreateReportRequest request)
+   {
+      if(request.TopicId == null && request.PostId == null)
       {
-         return Ok();
+         return BadRequest(new {error = "Must provide either a TopicId or PostId"});
       }
+
+      var report = new Report
+      {
+         TopicId = request.TopicId,
+         PostId = request.PostId,
+         Reason = request.Reason,
+         CreatedAt = DateTime.UtcNow,
+         Resolved = false
+      };
+
+      _context.Reports.Add(report);
+      await _context.SaveChangesAsync();
+
+      return Ok(report);
+}
 
    [HttpGet]
    [Authorize(Roles = "Moderator, Admin")]
