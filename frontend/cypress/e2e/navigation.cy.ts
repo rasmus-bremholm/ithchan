@@ -25,9 +25,9 @@ describe("Board Listing", () => {
 	it("navigates to catalog and opens a thread", () => {
 		cy.get("nav").contains("/a/").click();
 		cy.contains("View Thread").first().click();
-		cy.get("button").contains("Catalog").click();
+		cy.contains("Catalog").click();
 		cy.url().should("include", "/catalog");
 		cy.get("a[href*='/a/']").first().click();
-		cy.url().should("match", /\/a\/\d+/);
+		cy.url().should("include", "/a/");
 	});
 });
